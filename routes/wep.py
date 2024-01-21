@@ -15,17 +15,16 @@ def api_entry():
 
 
 @defaultAPI.route('/')
-@defaultAPI.route('/index')
-@defaultAPI.route('/home')
 def index():
     return render_template('index.html')
+
+@defaultAPI.route('/login')
+def login():
+    return render_template('login.html')
 
 @defaultAPI.route('/img/<filename>')
 def send_img(filename):
     return send_from_directory('./static/img', filename)
-@defaultAPI.route('/robots.txt')
-def send_robots():
-    return send_from_directory('./static', 'robots.txt')
 
 @defaultAPI.errorhandler(404)
 def page_not_found(e):

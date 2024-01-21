@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block header %}
+  {% include 'nav.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1>Login</h1>
+      <form action="/login" method="post">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input class="form-control" type="text" name="email" id="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
+        </div>
+        <div class="form-group">
+          <input class="btn btn-primary" type="submit" value="Login">
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
