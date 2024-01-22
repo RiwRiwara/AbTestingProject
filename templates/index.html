@@ -1,6 +1,6 @@
 <!-- templates/index.html -->
 
-{% extends 'layout.html' %}
+{% extends 'layout/layout_login.html' %}
 
 {% block title %}Title{% endblock %}
 
@@ -9,6 +9,14 @@
 {% endblock %}
 
 {% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-success">
+    {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+
 {% endblock %}
 
 {% block footer %}

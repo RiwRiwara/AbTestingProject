@@ -1,0 +1,105 @@
+{% extends 'layout/layout_login.html' %} {% block title %}Login{% endblock %} 
+{% block
+header %}{% endblock %} {% block content %}
+
+<div
+  class="vh-100 d-flex align-content-center align-items-center px-md-4 px-lg-4 px-1"
+  style="background-color: rgb(226, 255, 238)"
+>
+  <div class="row px-md-4 px-lg-4 px-1">
+    <!-- Left Content -->
+    <div
+      class="col-6 d-flex justify-content-center p-md-4 p-lg-4 p-2 flex-column align-content-center align-items-center"
+    >
+      <h1 class="text-center" style="color: green; font-size: 4rem">
+        A/B TESTING
+      </h1>
+      <img
+        src="{{ url_for('static', filename='img/loginimg.png') }}"
+        width="90%"
+      />
+    </div>
+
+    <!-- Right Content -->
+    <div
+      class="col-6 d-flex justify-content-center p-md-4 p-lg-4 p-2 bg-white h-100"
+      style="
+        border-radius: 40px;
+        box-shadow: -2px 7px 1px 0px rgba(0, 0, 0, 0.37);
+      "
+    >
+      <div class="container">
+        <h1 class="text-left mb-5">Login</h1>
+        <div class="mb-5">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 d-flex justify-content-center">
+              <button
+                class="btn btn-outline-primary p-2 d-flex align-items-center justify-content-center gap-2 w-auto"
+                style="border-radius: 8px"
+              >
+                <img
+                  width="30"
+                  src="{{ url_for('static', filename='img/google.svg') }}"
+                  alt="Google Icon"
+                />
+                <p class="mb-0 fw-bold">Sign up with Google</p>
+              </button>
+            </div>
+            <div class="col-md-6 col-lg-6 d-flex justify-content-center">
+              <button
+                class="btn btn-outline-primary p-2 d-flex align-items-center justify-content-center gap-2 w-auto"
+                style="border-radius: 8px"
+              >
+                <img
+                  width="30"
+                  src="{{ url_for('static', filename='img/facebook.svg') }}"
+                  alt="Facebook Icon"
+                />
+                <p class="mb-0 fw-bold">Sign up with Facebook</p>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-center mb-5">- OR -</p>
+
+        <form action="{{ url_for('authAPI.login') }}" method="post" class="container">
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input
+              class="form-control with-line"
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input
+              class="form-control with-line"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+
+          <div class="text-center row justify-content-center" style="margin-top: 3rem;">
+            <button class="btn btn-success text-center p-1 fs-4 fw-bold" style="border-radius: 30px;" type="submit">
+              Login
+            </button>
+          </div>
+        </form>
+
+        <p class="text-center justify-content-center mt-4 fw-bold">
+          <a href="/auth/register">สร้างบัญชีใหม่ </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block footer %} {% endblock %}
