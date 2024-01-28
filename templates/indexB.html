@@ -12,19 +12,20 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
   <div
     class="d-flex flex-column justify-content-center align-content-center text-center"
   >
+    <img
+      src="{{ url_for('static', filename='img/main/top-img.png') }}"
+      alt=""
+    />
+  </div>
+
+  <div
+    class="d-flex flex-column justify-content-center align-content-center text-center"
+  >
     <h1 class="fw-bold">New Collection</h1>
     <h4>สมาชิกลด 10%</h4>
     <div>
       <button class="btn btn-dark fw-bold fs-5">สั่งซื้อเลย</button>
     </div>
-  </div>
-  <div
-    class="d-flex flex-column justify-content-center align-content-center text-center"
-  >
-    <img
-      src="{{ url_for('static', filename='img/main/top-img.png') }}"
-      alt=""
-    />
   </div>
 </section>
 
@@ -326,33 +327,53 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
   <div class="d-flex justify-content-center gap-4" style="margin-top: 3rem">
     <div class="d-flex flex-row gap-3">
-      
-      <div class="d-flex justify-content-center align-items-center text-center p-3 rounded flex-column gap-3" style="width: 300px">
-        <img src="{{ url_for('static', filename='img/main/box.png') }}" alt="" width="40" height="40" />
+      <div
+        class="d-flex justify-content-center align-items-center text-center p-3 rounded flex-column gap-3"
+        style="width: 300px"
+      >
+        <img
+          src="{{ url_for('static', filename='img/main/box.png') }}"
+          alt=""
+          width="40"
+          height="40"
+        />
         <div>
           <h5 class="fw-bold">จัดส่งฟรี</h5>
           <p>เมื่อซื้อครบ 500.- ขึ้นไป</p>
         </div>
       </div>
-      
-      
-      <div class="d-flex justify-content-center align-items-center text-center p-3 rounded flex-column gap-3" style="width: 300px">
-        <img src="{{ url_for('static', filename='img/main/hset.png') }}" alt="" width="40" height="40" />
+
+      <div
+        class="d-flex justify-content-center align-items-center text-center p-3 rounded flex-column gap-3"
+        style="width: 300px"
+      >
+        <img
+          src="{{ url_for('static', filename='img/main/hset.png') }}"
+          alt=""
+          width="40"
+          height="40"
+        />
         <div>
           <h5 class="fw-bold">ติดต่อแอดมิน</h5>
           <p>แชทกับเราได้ตลอด 24 ชั่วโมง</p>
         </div>
       </div>
-      
-      <div class="d-flex justify-content-center align-items-center text-center p-3 rounded flex-column gap-3" style="width: 300px">
-        <img src="{{ url_for('static', filename='img/main/pay.png') }}" alt="" width="40" height="40" />
+
+      <div
+        class="d-flex justify-content-center align-items-center text-center p-3 rounded flex-column gap-3"
+        style="width: 300px"
+      >
+        <img
+          src="{{ url_for('static', filename='img/main/pay.png') }}"
+          alt=""
+          width="40"
+          height="40"
+        />
         <div>
           <h5 class="fw-bold">ชำระเงิน</h5>
           <p>ช่องทางการชำระเงิน</p>
         </div>
       </div>
-      
-      
     </div>
   </div>
 </section>

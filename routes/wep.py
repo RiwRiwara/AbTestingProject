@@ -5,7 +5,14 @@ import json
 
 @defaultAPI.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', title='Home A')
+@defaultAPI.route('/A')
+def indexA():
+    return render_template('index.html', title='Home A')
+
+@defaultAPI.route('/B')
+def indexB():
+    return render_template('indexB.html', title='Home B')
 
 @defaultAPI.route('/img/<filename>')
 def send_img(filename):
