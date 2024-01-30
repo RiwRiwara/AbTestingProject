@@ -59,11 +59,21 @@
                 <i class="bi bi-cart"></i>
               </a>
             </div>
+            {% if 'user_id' in session %}
+            <!-- If user is logged in, show Logout button -->
             <a
+              href="{{ url_for('authAPI.logout') }}"
               class="btn fs-6 btn-dark fw-bold text-bg-white"
+              >Logout</a
+            >
+            {% else %}
+            <!-- If user is not logged in, show Login button -->
+            <a
               href="/auth/login"
+              class="btn fs-6 btn-dark fw-bold text-bg-white"
               >ล็อคอิน</a
             >
+            {% endif %}
           </li>
         </ul>
       </div>
