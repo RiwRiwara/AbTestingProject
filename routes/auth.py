@@ -30,22 +30,24 @@ def login():
             return redirect(url_for('defaultAPI.indexA'))
         return render_template('auth/login.html', title='Login', error='')
     
+
 @authAPI.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         data = request.form.to_dict()
         existing_user = db.users.find_one({'email': data['email']})
         if existing_user:
-            
             return render_template('auth/register.html', title='Register', error='email already taken')
         else:
             db.users.insert_one(data)
+            user = db.users.find_one({'email': data['email']})
+            session['user_id'] = str(user['_id'])
             flash('Registration successful', 'success')
-            return redirect(url_for('defaultAPI.index'))
+            return jsonify({'success': True})
     else:
         if is_logged_in():
             return redirect(url_for('defaultAPI.index'))
-        return render_template('auth/register.html', title='Register')
+        return render_template('auth/register.html', title='Register', success=None, error=None)
 
 @authAPI.route('/logout')
 def logout():
