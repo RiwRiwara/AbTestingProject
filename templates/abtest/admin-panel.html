@@ -1,0 +1,82 @@
+{% extends 'layout/layout_loggedin-admin.html' %} {% block title %}Title{% endblock %} {%
+block content %} {% with messages = get_flashed_messages() %} {% if messages %}
+<div class="alert alert-success">{{ messages[0] }}</div>
+{% endif %} {% endwith %} {% include './components/nav.html' %}
+
+<section class="d-flex flex-column container-fluid vh-100" style="margin-top: 5rem;">
+
+    <div class="container-fluid "
+        style="background-image: url('{{url_for('static', filename='img/bg-admin.png')}}'); background-size: cover; background-position: center center;">
+        <section class="d-flex justify-content-around container-fluid">
+
+            <div class="container d-flex justify-content-center align-items-center flex-column">
+                <h1 class="text-start tc-green italic fw-bold display-1">A/B TESTING</h1>
+                <h5 class="text-start text-dark fs-5">A/B Test Statistical Significance Calculator</h5>
+                <button class="btn btn-secondary rounded-pill fs-3 my-4 p-3">เริ่มทดลองใช้ฟรี</button>
+
+            </div>
+
+            <div class=" container d-flex justify-content-center align-items-center flex-column">
+                <img src="{{ url_for('static', filename='img/bg-admin-left.png') }}" alt="Leaf" width="600" />
+            </div>
+
+
+        </section>
+    </div>
+    
+    <section class="my-4 py-2">
+        <h1 class="text-center tc-green fw-bold fs-2">เลือกแผนการใช้งานที่เหมาะสำหรับคุณ</h1>
+        <div class="container d-flex flex-row justify-content-evenly">
+
+            <div class="shadow-lg p-2 d-flex flex-column" style="border-radius: 2rem; min-width: 300px; min-height: 300;">
+                <div class="container">
+                    <div>
+                        <h4 class="fw-bold text-center text-white bg-success">ธุรกิจขนาดเล็ก</h4>
+                    </div>
+                    <div class="bg-white text-center ">
+                        <h5 class="fw-bold text-dark">699</h5>
+                        <h5 class="text-dark">ต่อผู้ใช้งาน/เดือน</h5>
+                    </div>
+                </div>
+                <div class="container d-flex justify-content-center">
+                    <button class="btn btn-success rounded p-3">สั่งซื้อ</button>
+                </div>
+            </div>
+
+            <div class="shadow-lg p-2 d-flex flex-column" style="border-radius: 2rem; min-width: 300px; min-height: 300;">
+                <div class="container">
+                    <div>
+                        <h4 class="fw-bold text-center text-white bg-primary">ธุรกิจขนาดกลาง</h4>
+                    </div>
+                    <div class="bg-white text-center ">
+                        <h5 class="fw-bold text-dark">699</h5>
+                        <h5 class="text-dark">ต่อผู้ใช้งาน/เดือน</h5>
+                    </div>
+                </div>
+                <div class="container d-flex justify-content-center">
+                    <button class="btn btn-primary rounded p-3">สั่งซื้อ</button>
+                </div>
+            </div>
+
+            <div class="shadow-lg p-2 d-flex flex-column" style="border-radius: 2rem; min-width: 300px; min-height: 300;">
+                <div class="container">
+                    <div>
+                        <h4 class="fw-bold text-center text-white bg-info">ธุรกิจขนาดใหญ่</h4>
+                    </div>
+                    <div class="bg-white text-center ">
+                        <h5 class="fw-bold text-dark">699</h5>
+                        <h5 class="text-dark">ต่อผู้ใช้งาน/เดือน</h5>
+                    </div>
+                </div>
+                <div class="container d-flex justify-content-center">
+                    <button class="btn btn-info rounded p-3">สั่งซื้อ</button>
+                </div>
+            </div>
+            
+
+        </div>
+    </section>
+
+</section>
+
+{% endblock %} {% block footer %} {% include 'footer.html' %} {% endblock %}

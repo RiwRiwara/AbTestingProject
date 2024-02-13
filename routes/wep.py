@@ -21,3 +21,17 @@ def send_img(filename):
 @defaultAPI.errorhandler(404)
 def page_not_found(e):
     return redirect(url_for('index'))
+
+
+@defaultAPI.route('/admin-panel')
+def admin_panel():
+    if session['admin']:
+        return render_template('abtest/admin-panel.html', title='Admin Panel')
+    else:
+        return redirect(url_for('defaultAPI.index'))
+
+# dynamic an specfy page
+@defaultAPI.route('/admin-panel/<page>') 
+def static_route(page):
+    return render_template('abtest/'+page+'.html', title='Admin Panel')
+    

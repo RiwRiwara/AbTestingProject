@@ -13,10 +13,8 @@ def api_entry():
 
 @apiAPI.route('/save-click-action', methods=['POST'])
 def save_click_action():
-    # Extract data from the request
     data = request.json
 
-    # Validate and extract necessary data
     page = data.get('page')
     if not page:
         return jsonify({'error': 'Page parameter is missing'}), 400
@@ -27,6 +25,7 @@ def save_click_action():
         db.click_actions.insert_one({
             'date_click': datetime.now(),
             'user_id': user_id,
+            'button': data.get('button'),
             'page': page
         })
         return jsonify({'success': 'Click action saved successfully'}), 200

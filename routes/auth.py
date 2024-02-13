@@ -29,7 +29,7 @@ def login():
         if is_logged_in():
             return redirect(url_for('defaultAPI.indexA'))
         return render_template('auth/login.html', title='Login', error='')
-    
+
 
 @authAPI.route('/register', methods=['GET', 'POST'])
 def register():
@@ -39,6 +39,7 @@ def register():
         if existing_user:
             return render_template('auth/register.html', title='Register', error='email already taken')
         else:
+            data['role'] = 'user'
             db.users.insert_one(data)
             user = db.users.find_one({'email': data['email']})
             session['user_id'] = str(user['_id'])
@@ -58,7 +59,7 @@ def logout():
 @authAPI.route('/test-session')
 def test_session():
     if 'user_id' in session:
-        return 'User is logged in. User ID: ' + session['user_id']
+        return 'User is logged in. User ID: ' + session['user_id'] + ' Role: ' + str(session['admin'])
     else:
         return 'User is not logged in.'
 
@@ -73,3 +74,39 @@ def login_required(func):
             return redirect(url_for('authAPI.login'))
         return func(*args, **kwargs)
     return decorated_function
+
+@authAPI.route('/abtest/login', methods=['GET', 'POST'])
+def login_admin():
+    if request.method == 'POST':
+        data = request.form.to_dict()
+        user = db.users.find_one({'email': data['email']})
+        if user and user['password'] == data['password']:
+            session['user_id'] = str(user['_id'])
+            session['admin'] = True
+            return redirect(url_for('defaultAPI.admin_panel'))
+        else:
+            error = 'Invalid email or password'
+            return render_template('abtest/login_admin.html', title='Login', error=error)
+    else:
+        if is_logged_in():
+            return redirect(url_for('defaultAPI.admin_panel'))
+        return render_template('abtest/login_admin.html', title='Login', error='')
+
+
+@authAPI.route('/abtest/register', methods=['GET', 'POST'])
+def register_admin():
+    if request.method == 'POST':
+        data = request.form.to_dict()
+        existing_user = db.users.find_one({'email': data['email']})
+        if existing_user:
+            return render_template('abtest/register_admin.html', title='Register', error='email already taken')
+        else:
+            data['role'] = 'admin'
+            db.users.insert_one(data)
+            user = db.users.find_one({'email': data['email']})
+            session['user_id'] = str(user['_id'])
+            session['admin'] = True
+            flash('Registration successful', 'success')
+            return render_template('abtest/login_admin.html', title='Login', success=True, error=None, success_message='Registration successful')
+    else:
+        return render_template('abtest/register_admin.html', title='Register', success=None, error=None)

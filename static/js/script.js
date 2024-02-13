@@ -4,9 +4,10 @@ window.addEventListener('load', function () {
 
 
 
-function handleButtonClick(page) {
+function handleButtonClick(page, button) {
     const data = {
-        page: page
+        page: page,
+        button: button
     };
 
     fetch('api/save-click-action', {
@@ -18,11 +19,9 @@ function handleButtonClick(page) {
     })
     .then(response => {
         if (response.ok) {
-            // Show an alert if the click action was successfully saved
-            alert('Buy action has been saved.');
+            alert(button+' action has been saved.');
         } else {
-            // Show an alert if there was an error saving the click action
-            alert('Failed to save buy action.');
+            alert('Failed to '+button+'buy action.');
         }
     })
     .catch(error => {

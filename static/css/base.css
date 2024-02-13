@@ -5,8 +5,11 @@
   font-family: 'IBM Plex Sans Thai', sans-serif;
 }
 
-.greenc {
-  color: #567610;
+.tc-green {
+  color: #5EC57E;
+}
+.bc-green {
+  background-color: #ECF8E5;
 }
 
 .redc {
