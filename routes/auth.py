@@ -44,7 +44,8 @@ def register():
             user = db.users.find_one({'email': data['email']})
             session['user_id'] = str(user['_id'])
             flash('Registration successful', 'success')
-            return jsonify({'success': True})
+            # REDIRECT TO LOGIN
+            return render_template('auth/login.html', title='Login', success='Registration successful', error=None, success_message='Registration successful')
     else:
         if is_logged_in():
             return redirect(url_for('defaultAPI.index'))
