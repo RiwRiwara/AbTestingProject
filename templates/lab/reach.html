@@ -1,0 +1,45 @@
+<!-- lab/dashboard.html -->
+
+{% extends 'layout/layout_lab.html' %} {% block title %}Reach{% endblock %} {%
+block content %} {% with messages = get_flashed_messages() %} {% if messages %}
+<div class="alert alert-success">{{ messages[0] }}</div>
+{% endif %} {% endwith %} {% include './components/navLab.html' %}
+
+<section class=" p-2 d-flex justify-content-center row gap-4" style="margin-top: 3rem;">
+    <div class="d-flex justify-content-around gap-4">
+        <div class=" container d-flex flex-column justify-content-center">
+            <img src="{{ url_for('static', filename='img/lab/compareA.jpg') }}" alt="reach" class="img-fluid">
+
+            <h3 class="text-center fw-bold my-2">คลิกชมเว็บ A</h3>
+            <div class="d-flex flex-row gap-4 justify-content-center mt-4">
+                <div class="d-flex flex-column gap-4">
+                    <span>จำนวนผู้เข้าสู่ระบบ เว็บ A</span>
+                    <h2>{{data.visitors_count.A}}</h2>
+                </div>
+                <div class="d-flex flex-column gap-4">
+                    <span> จำนวนคลิก เว็บ A</span>
+                    <h2>{{data.visitors_click.A}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class=" container d-flex flex-column justify-content-center">
+            <img src="{{ url_for('static', filename='img/lab/compareA.jpg') }}" alt="reach" class="img-fluid">
+
+            <h3 class="text-center fw-bold my-2">คลิกชมเว็บ A</h3>
+            <div class="d-flex flex-row gap-4 justify-content-center mt-4">
+                <div class="d-flex flex-column gap-4">
+                    <span>จำนวนผู้เข้าสู่ระบบ เว็บ B</span>
+                    <h2>{{data.visitors_count.B}}</h2>
+
+                </div>
+                <div class="d-flex flex-column gap-4">
+                    <span> จำนวนคลิก เว็บ B</span>
+                    <h2>{{data.visitors_click.B}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

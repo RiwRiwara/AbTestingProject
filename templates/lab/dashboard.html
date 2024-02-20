@@ -100,7 +100,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         </div>
         <div class="d-flex justify-content-center ">
             <!-- <h4 class="fw-bold bg-white p-2 shadow-sm rounded">7 วันที่ผ่านมา</h4> -->
-            
+
         </div>
         <div class="d-flex justify-content-center flex-column">
             <canvas id="mainChart"></canvas>
@@ -143,6 +143,9 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
             </div>
         </div>
 
+        <div class="my-2">
+            <a href="{{ url_for('labAPI.reach') }}" class="btn btn-warning  fs-6 fw-bold w-25">ชมการเข้าถึง</a>
+        </div>
 
     </div>
 </section>
@@ -197,7 +200,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 },
                 title: {
                     display: true,
-                    text: 'Chart.js Pie Chart'
+                    text: 'Visitors Count'
                 }
             }
         }
@@ -230,7 +233,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 },
                 title: {
                     display: true,
-                    text: 'Chart.js Line Chart'
+                    text: 'Line Chart'
                 }
             }
         }

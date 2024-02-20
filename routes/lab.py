@@ -48,6 +48,7 @@ def dashboard():
 
         visitors_count_A = db.visitors.count_documents({'page': 'A'})
         visitors_count_B = db.visitors.count_documents({'page': 'B'})
+
         if page == 'all':
             visitors_count_display = visitors_count_A + visitors_count_B
         else:
@@ -66,3 +67,27 @@ def dashboard():
         return render_template('lab/dashboard.html', title='Dashboard', data=data)
     else:
         return redirect(url_for('labAPI.login_admin_lab'))
+@labAPI.route('/reach', methods=['GET'])
+def reach():
+    if is_logged_in() and session['admin']:
+
+        visitors_count_A = db.visitors.count_documents({'page': 'A'})
+        visitors_click_A = db.click_actions.count_documents({'page': 'A'})
+        visitors_count_B = db.visitors.count_documents({'page': 'B'})
+        visitors_click_B = db.click_actions.count_documents({'page': 'B'})
+
+
+        data = {
+            'visitors_count': {
+                'A': visitors_count_A,
+                'B': visitors_count_B
+            },
+            'visitors_click': {
+                'A': visitors_click_A,
+                'B': visitors_click_B
+            },
+        }
+        return render_template('lab/reach.html', title='Reach', data=data)
+    else:
+        return redirect(url_for('labAPI.login_admin_lab'))
+    
