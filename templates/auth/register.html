@@ -16,6 +16,7 @@
       src="{{ url_for('static', filename='img/left-section.png') }}"
       alt="Leaf"
       width="550"
+      id="left-section"
     />
   </div>
 
@@ -35,6 +36,8 @@
         method="post"
         class="container"
       >
+      <input type="hidden" name="page" value="A">
+
         <div class="form-group">
           <label for="fullname" class="h6 form-label">ชื่อผู้ใช้ :</label>
           <input
@@ -124,6 +127,26 @@
         passwordMatchError.textContent = "";
       }
     });
+</script>
+
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const page = urlParams.get('page');
+
+  if (page) {
+    if (page === 'A') {
+      document.getElementsByName('page')[0].value = 'A';
+      document.getElementById('left-section').src = "{{ url_for('static', filename='img/left-section.png') }}";
+    } else if (page === 'B') {
+      document.getElementsByName('page')[0].value = 'B';
+      document.getElementById('left-section').src = "{{ url_for('static', filename='img/left-sectionB.png') }}";
+    }
+  }else{
+    document.getElementsByName('page')[0].value = 'A';
+    document.getElementById('left-section').src = "{{ url_for('static', filename='img/left-section.png') }}";
+  }
+
 </script>
 
 {% endblock %} {% block footer %}{% endblock %}

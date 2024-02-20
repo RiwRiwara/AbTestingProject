@@ -52,6 +52,11 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
     </div>
   </div>
 
+  <div>
+    <button class="btn fw-bold text-white fs-5 my-2" onclick="handleButtonClick('B', 'best-seller')"
+    style="background-color: #F398C1;">BEST SELLER</button>
+  </div>
+
   <div class="d-flex justify-content-between gap-4">
     <div class="image-container">
       <img
@@ -195,7 +200,8 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
       และล็อคอินเว็บไซต์ สินค้ามีจำนวนจำกัด
     </h5>
     <div>
-      <button class="btn btn-dark fw-bold fs-5" onclick="handleButtonClick('B', 'register')">สมัครสมาชิก</button>
+      <button class="btn fw-bold text-white fs-5" onclick="handleButtonClick('B', 'register')"
+      style="background-color: #F398C1;">สมัครสมาชิก</button>
     </div>
   </div>
   <div
