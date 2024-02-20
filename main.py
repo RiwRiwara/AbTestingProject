@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask import Flask, render_template, request, jsonify, session
 from routes.wep import defaultAPI
 from routes.auth import authAPI
+from routes.lab import labAPI
 from routes.api import apiAPI
 from dotenv import load_dotenv
 import os
@@ -19,6 +20,7 @@ app.secret_key = os.getenv("PRIVATE_KEY")
 
 app.register_blueprint(defaultAPI, url_prefix='/')
 app.register_blueprint(authAPI, url_prefix='/auth')
+app.register_blueprint(labAPI, url_prefix='/lab')
 app.register_blueprint(apiAPI, url_prefix='/api')
 
 
