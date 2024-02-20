@@ -54,7 +54,6 @@ def dashboard():
         else:
             visitors_count_display = db.visitors.count_documents({'page': page})
 
-
         data = {
             'page': page,
             'button': button,
@@ -63,6 +62,10 @@ def dashboard():
                 'A': visitors_count_A,
                 'B': visitors_count_B
             },
+            'bar_chart': {
+                'labels': "[A, B]",
+                'data': [visitors_count_A, visitors_count_B]
+            }
         }
         return render_template('lab/dashboard.html', title='Dashboard', data=data)
     else:

@@ -163,10 +163,10 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
     // Bar chart data and config
     const barChartData = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: "{{data.bar_chart.labels}}",
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: "{{data.bar_chart.data}}",
             borderWidth: 1
         }]
     };
