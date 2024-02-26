@@ -67,3 +67,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  .image-container .nbtn {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-80%, -50%);
+  }

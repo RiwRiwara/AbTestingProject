@@ -8,6 +8,7 @@ from routes.api import apiAPI
 from dotenv import load_dotenv
 import os
 
+
 load_dotenv()
 
 
@@ -16,7 +17,6 @@ CORS(app)
 app.template_folder = 'templates'
 app.static_folder = 'static'
 app.secret_key = os.getenv("PRIVATE_KEY")
-
 
 app.register_blueprint(defaultAPI, url_prefix='/')
 app.register_blueprint(authAPI, url_prefix='/auth')
