@@ -109,8 +109,8 @@ def calculator():
         # get args from url
         visitors_A = int(request.args.get('visitors_a') or 5000)
         visitors_B = int(request.args.get('visitors_b') or 5000)
-        conversion_A = float(request.args.get('conversions_a') or 1000)
-        conversion_B = float(request.args.get('conversions_b') or 1560)
+        conversion_A = int(request.args.get('conversions_a') or 1000)
+        conversion_B = int(request.args.get('conversions_b') or 1560)
 
         alpha = float(request.args.get('significance_level') or 0.05) 
         two_tails = request.args.get('method') or 'two'
@@ -120,9 +120,9 @@ def calculator():
             two_tails = True
         else:
             two_tails = False
-
+        print(visitors_A, visitors_B, conversion_A, conversion_B, alpha,two_tails )
         # Calculate
-        test = Frequentist(5000, 1000, 5000, 1560)
+        test = Frequentist(visitors_A, conversion_A, visitors_B, conversion_B, alpha=alpha, two_tails=two_tails)
         test.get_z_value()
 
         # Print all the attributes

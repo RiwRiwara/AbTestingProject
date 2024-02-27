@@ -386,33 +386,33 @@ class Frequentist(object):
 
         return fig
 
-# Test class
-test = Frequentist(5000, 1000, 5000, 1560)
-test.get_z_value()
+# # Test class
+# test = Frequentist(5000, 1000, 5000, 1560)
+# test.get_z_value()
 
-#print all the attributes
-print("Test Visitor A", test.visitors_A)
-print("Test Visitor B", test.visitors_B)
-print("Test Conversion A", test.conversions_A)
-print("Test Conversion B", test.conversions_B)
-print("Test Alpha", test.alpha)
-print("Test Two Tails", test.two_tails)
-print("Test Control CR", test.control_cr)
-print("Test Variant CR", test.variant_cr)
-print("Test Relative Difference", test.relative_difference)
-print("Test Control SE", test.control_se)
-print("Test Variant SE", test.variant_se)
-print("Test SE Difference", test.se_difference)
+# #print all the attributes
+# print("Test Visitor A", test.visitors_A)
+# print("Test Visitor B", test.visitors_B)
+# print("Test Conversion A", test.conversions_A)
+# print("Test Conversion B", test.conversions_B)
+# print("Test Alpha", test.alpha)
+# print("Test Two Tails", test.two_tails)
+# print("Test Control CR", test.control_cr)
+# print("Test Variant CR", test.variant_cr)
+# print("Test Relative Difference", test.relative_difference)
+# print("Test Control SE", test.control_se)
+# print("Test Variant SE", test.variant_se)
+# print("Test SE Difference", test.se_difference)
 
-print("---------")
-# Run the z-test
-z_score, p_value = test.z_test()
-print("Z Score", z_score)
-print("P Value", p_value)
+# print("---------")
+# # Run the z-test
+# z_score, p_value = test.z_test()
+# print("Z Score", z_score)
+# print("P Value", p_value)
 
-# Run the power test
-power = test.get_power()
-print("Power", power)
+# # Run the power test
+# power = test.get_power()
+# print("Power", power)
 
 
 # Run the z-value calculation before plotting

@@ -11,8 +11,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
         <div class="d-flex flex-row gap-1">
             <div class="form-outline" data-mdb-input-init>
-                <input type="number" value="50000" id="visitors_a" name="visitors_a"
-                    class="form-control form-control-lg" />
+                <input type="number" value="{% if request.args.get('visitors_a') is not none %}{{ request.args.get('visitors_a') }}{% else %}50000{% endif %}" id="visitors_a" name="visitors_a" class="form-control form-control-lg" />
                 <label class="form-label" for="visitors_a">Visitors A</label>
             </div>
             <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
@@ -23,8 +22,8 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
         <div class="d-flex flex-row gap-1">
             <div class="form-outline" data-mdb-input-init>
-                <input type="number" value="2000" id="conversions_a" name="conversions_a"
-                    class="form-control form-control-lg" />
+                <input type="number" value="{% if request.args.get('conversions_a') is not none %}{{ request.args.get('conversions_a') }}{% else %}1500{% endif %}" id="conversions_a" name="conversions_a" class="form-control form-control-lg" />
+
                 <label class="form-label" for="conversions_a">Conversion A</label>
             </div>
             <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
@@ -35,8 +34,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
         <div class="d-flex flex-row gap-1">
             <div class="form-outline" data-mdb-input-init>
-                <input type="number" value="50000" id="visitors_b" name="visitors_b"
-                    class="form-control form-control-lg" />
+                <input type="number" value="{% if request.args.get('visitors_b') is not none %}{{ request.args.get('visitors_b') }}{% else %}50000{% endif %}" id="visitors_b" name="visitors_b" class="form-control form-control-lg" />
                 <label class="form-label" for="visitors_b">Visitors B</label>
             </div>
             <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
@@ -47,8 +45,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
         <div class="d-flex flex-row gap-1">
             <div class="form-outline" data-mdb-input-init>
-                <input type="number" value="1560" id="conversions_b" name="conversions_b"
-                    class="form-control form-control-lg" />
+                <input type="number" value="{% if request.args.get('conversions_b') is not none %}{{ request.args.get('conversions_b') }}{% else %}1000{% endif %}" id="conversions_b" name="conversions_b" class="form-control form-control-lg" />
                 <label class="form-label" for="conversions_b">Conversion B</label>
             </div>
             <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
