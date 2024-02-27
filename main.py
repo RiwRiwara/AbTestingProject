@@ -20,6 +20,7 @@ app.secret_key = os.getenv("PRIVATE_KEY")
 
 app.register_blueprint(defaultAPI, url_prefix='/')
 app.register_blueprint(authAPI, url_prefix='/auth')
+# ส่วนหน้าเข้าระบบแอดมิน
 app.register_blueprint(labAPI, url_prefix='/lab')
 app.register_blueprint(apiAPI, url_prefix='/api')
 
