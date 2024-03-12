@@ -73,7 +73,7 @@ def generate_random_click_action():
             random_page = random.choice(pages)
             random_date = random_datetime(start_date, datetime.now())
 
-        for _ in range(num_actions+50):
+        for _ in range(num_actions+100):
             db.visitors.insert_one({
                 'date_visit': random_date,
                 'user_id': user_id,
