@@ -159,13 +159,13 @@ class Frequentist(object):
         diff = self.variant_cr - self.control_cr
 
         ax.axvline(
-            x=diff, ymax=ax.get_ylim()[1], c="tab:orange", alpha=0.5, linestyle="--"
+            x=diff, ymax=ax.get_ylim()[1], c="tab:red", alpha=0.5, linestyle="--"
         )
         ax.text(
             ax.get_xlim()[0] + (ax.get_xlim()[1] - ax.get_xlim()[0]) * 0.8,
             ax.get_ylim()[1] * 0.8,
             "Observed\ndifference: {:.2%}".format(self.relative_difference),
-            color="tab:orange",
+            color="tab:red",
             **roboto,
         )
 
@@ -175,7 +175,7 @@ class Frequentist(object):
                 0,
                 yA,
                 where=(xA > 0 + self.se_difference * self.z),
-                color="green",
+                color="blue",
                 alpha=0.2,
             )
         elif self.tail_direction == "right":
@@ -184,7 +184,7 @@ class Frequentist(object):
                 0,
                 yA,
                 where=(xA < 0 - self.se_difference * self.z),
-                color="green",
+                color="blue",
                 alpha=0.2,
             )
         else:
@@ -194,7 +194,7 @@ class Frequentist(object):
                 yA,
                 where=(xA > 0 + self.se_difference * self.z)
                 | (xA < 0 - self.se_difference * self.z),
-                color="green",
+                color="blue",
                 alpha=0.2,
             )
 
@@ -265,7 +265,7 @@ class Frequentist(object):
             self.variant_cr,
             max(yB) * 1.03,
             "B",
-            color="tab:orange",
+            color="tab:red",
             horizontalalignment="center",
             **roboto_bold,
         )
@@ -339,7 +339,7 @@ class Frequentist(object):
                 0,
                 yB,
                 where=(xB > self.control_cr + self.control_se * self.z),
-                color="green",
+                color="blue",
                 alpha=0.2,
             )
         else:
@@ -348,7 +348,7 @@ class Frequentist(object):
                 0,
                 yB,
                 where=(xB < self.control_cr - self.control_se * self.z),
-                color="green",
+                color="blue",
                 alpha=0.2,
             )
 

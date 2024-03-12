@@ -9,3 +9,4 @@ from . import wep
 from . import auth
 from . import lab
 from . import api
+from . import dashboard

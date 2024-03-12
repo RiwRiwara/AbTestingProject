@@ -48,36 +48,8 @@ def logout():
     flash('You have been logged out', 'info')
     return redirect(url_for('labAPI.login_admin_lab'))
 
-@labAPI.route('/dashboard')
-def dashboard():
-    if is_logged_in() and session['admin']:
-        page = request.args.get('page') or 'all'
-        button = request.args.get('button') or 'all'
 
-        visitors_count_A = db.visitors.count_documents({'page': 'A'})
-        visitors_count_B = db.visitors.count_documents({'page': 'B'})
-
-        if page == 'all':
-            visitors_count_display = visitors_count_A + visitors_count_B
-        else:
-            visitors_count_display = db.visitors.count_documents({'page': page})
-
-        data = {
-            'page': page,
-            'button': button,
-            'visitors_count_display': visitors_count_display,
-            'visitors_count': {
-                'A': visitors_count_A,
-                'B': visitors_count_B
-            },
-            'bar_chart': {
-                'labels': "[A, B]",
-                'data': [visitors_count_A, visitors_count_B]
-            }
-        }
-        return render_template('lab/dashboard.html', title='Dashboard', data=data)
-    else:
-        return redirect(url_for('labAPI.login_admin_lab'))
+    
 @labAPI.route('/reach', methods=['GET'])
 def reach():
     if is_logged_in() and session['admin']:
@@ -107,10 +79,17 @@ def reach():
 def calculator():
     if is_logged_in() and session['admin']:
         # get args from url
-        visitors_A = int(request.args.get('visitors_a') or 5000)
-        visitors_B = int(request.args.get('visitors_b') or 5000)
-        conversion_A = int(request.args.get('conversions_a') or 1000)
+        visitors_A = int(request.args.get('visitors_a') or 50000)
+        visitors_B = int(request.args.get('visitors_b') or 50000)
+        conversion_A = int(request.args.get('conversions_a') or 1500)
         conversion_B = int(request.args.get('conversions_b') or 1560)
+
+        # data from db
+        visitors_count_A = db.visitors.count_documents({'page': 'A'})
+        visitors_count_B = db.visitors.count_documents({'page': 'B'})
+
+        visitors_click_A = db.click_actions.count_documents({'page': 'A'})
+        visitors_click_B = db.click_actions.count_documents({'page': 'B'})
 
         alpha = float(request.args.get('significance_level') or 0.05) 
         two_tails = request.args.get('method') or 'two'
@@ -118,9 +97,11 @@ def calculator():
         # Change twotails to bool
         if two_tails == 'two':
             two_tails = True
+            alpha = alpha * 2
         else:
             two_tails = False
         print(visitors_A, visitors_B, conversion_A, conversion_B, alpha,two_tails )
+
         # Calculate
         test = Frequentist(visitors_A, conversion_A, visitors_B, conversion_B, alpha=alpha, two_tails=two_tails)
         test.get_z_value()
@@ -144,7 +125,14 @@ def calculator():
         print("P Value", p_value)
 
         power = test.get_power()
-        print("Power", power)
+        print("Power", round(power/100))
+
+        # Calculate uplift
+        uplift_a = round(((conversion_A / visitors_A * 100) * 100) / (conversion_B / visitors_B * 100)-100, 4) 
+        uplift_b = round(((conversion_B / visitors_B * 100) * 100) / (conversion_A / visitors_A * 100)-100, 4) 
+
+        isAmB = uplift_a > uplift_b
+        isSignificant = p_value < alpha
 
         
         fig_test = test.plot_test_visualisation()
@@ -172,9 +160,28 @@ def calculator():
         # Close the power figure to release memory
         plt.close(fig_power)
 
+        data = {
+            'visitors_count': {
+                'A': visitors_count_A,
+                'B': visitors_count_B
+            },
+            'visitors_click': {
+                'A': visitors_click_A,
+                'B': visitors_click_B
+            },
+        }
+
         # Pass the base64 strings to the template
-        return render_template('lab/calculator.html', title='Calculator', fig_test=fig_test_base64, fig_power=fig_power_base64)
+        return render_template('lab/calculator.html', title='Calculator', fig_test=fig_test_base64, fig_power=fig_power_base64,
+                               test=test, z_score=z_score, p_value=p_value, power=power, uplift_a=uplift_a, uplift_b=uplift_b, isAmB=isAmB, isSignificant=isSignificant,
+                               data=data)
     else:
         return redirect(url_for('labAPI.login_admin_lab'))
+
+def calculate_frequentist(visitors_A, visitors_B, conversion_A, conversion_B, alpha, two_tails):
+    test = Frequentist(visitors_A, conversion_A, visitors_B, conversion_B, alpha=alpha, two_tails=two_tails)
+
+    return  test
+
 
     
