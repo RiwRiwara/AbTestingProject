@@ -12,6 +12,8 @@ import seaborn as sns
 from io import BytesIO
 import base64
 import random
+import calendar
+from datetime import datetime, timedelta
 
 def is_logged_in():
     return 'user_id' in session
@@ -25,14 +27,52 @@ def dashboard():
     if is_logged_in() and session['admin']:
         page = request.args.get('page') or 'all'
         button = request.args.get('button') or 'all'
+        time_frame = request.args.get('time_frame') or 'month'
 
         visitors_count_A = db.visitors.count_documents({'page': 'A'})
         visitors_count_B = db.visitors.count_documents({'page': 'B'})
 
         visitors_click_A = db.click_actions.count_documents({'page': 'A'})
+        visitors_click_save_A = db.click_actions.count_documents({'page': 'A', 'button': 'save'})
+        visitors_click_register_A = db.click_actions.count_documents({'page': 'A', 'button': 'register'})
+        
+
         visitors_click_B = db.click_actions.count_documents({'page': 'B'})
+        visitors_click_save_B = db.click_actions.count_documents({'page': 'B', 'button': 'save'})
+        visitors_click_register_B = db.click_actions.count_documents({'page': 'B', 'button': 'register'})
         
-        
+        line_label = []
+        if time_frame == 'month':
+            today = datetime.now()
+            line_label = [(today - timedelta(days=i)).strftime('%Y-%m-%d') for i in range(30)]
+        elif time_frame == 'half':
+            today = datetime.now()
+            line_label = [(today - timedelta(days=i)).strftime('%Y-%m-%d') for i in range(15)]
+        elif time_frame == 'seven':
+            today = datetime.now()
+            line_label = [(today - timedelta(days=i)).strftime('%Y-%m-%d') for i in range(7)]
+        else:
+            today = datetime.now()
+            line_label = [(today - timedelta(days=i)).strftime('%Y-%m-%d') for i in range(30)]
+        line_chart_data_A = []
+        line_chart_data_B = []
+
+        for date_str in line_label:
+            # Convert date string to datetime object
+            date = datetime.strptime(date_str, "%Y-%m-%d")
+            
+            # Convert datetime object to datetime at midnight
+            date_midnight = datetime.combine(date, datetime.min.time())
+            
+            # Count documents for page A
+            clicks_A = db.click_actions.count_documents({'page': 'A', 'date_click': {"$gte": date_midnight, "$lt": date_midnight + timedelta(days=1)}})
+            line_chart_data_A.append(clicks_A)
+
+            # Count documents for page B
+            clicks_B = db.click_actions.count_documents({'page': 'B', 'date_click': {"$gte": date_midnight, "$lt": date_midnight + timedelta(days=1)}})
+            line_chart_data_B.append(clicks_B)
+
+
 
         if page == 'all':
             visitors_count_display = visitors_count_A + visitors_count_B
@@ -66,8 +106,14 @@ def dashboard():
                 'B': visitors_count_B
             },
             'bar_chart': {
-                'labels': "[A, B]",
-                'data': [visitors_count_A, visitors_count_B]
+                'labels': ['Save', 'Register'],
+                'dataA': [visitors_click_save_A, visitors_click_register_A],
+                'dataB': [visitors_click_save_B, visitors_click_register_B]
+            },
+            'line_chart': {
+                'labels': line_label,
+                'dataA': line_chart_data_A,
+                'dataB': line_chart_data_B
             }
         }
 

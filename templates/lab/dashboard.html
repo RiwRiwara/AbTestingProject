@@ -97,54 +97,42 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
     <!-- Col - 2 -->
     <div class="col-6 p-2 rounded " style="background-color: #F5F5F5;">
-        <div>
+        <!-- <div>
             <h3 class="fw-bold">Page : {{data.page}}</h3>
             <h3 class="fw-bold">Button : {{data.button}}</h3>
-        </div>
+        </div> -->
         <div class="d-flex justify-content-center ">
             <!-- <h4 class="fw-bold bg-white p-2 shadow-sm rounded">7 วันที่ผ่านมา</h4> -->
 
         </div>
         <div class="d-flex justify-content-center flex-column">
-            <canvas id="mainChart"></canvas>
+            <form class="input-group gap-2" method="get" action="{{ url_for('labAPI.dashboard') }}">
+
+                <select class="form-select" name="time_frame" onchange="this.form.submit()">
+                    <option value="seven" {% if request.args.get('time_frame')=='seven' %} selected {% endif %}>7 วัน
+                    </option>
+                    <option value="half" {% if request.args.get('time_frame')=='half' %} selected {% endif %}>15 วัน
+                    </option>
+                    <option value="month" {% if request.args.get('time_frame')=='month' %} selected {% endif %}>30 วัน
+                    </option>
+                </select>
+            </form>
+
+            <canvas id="LineChart"></canvas>
+
+            <hr class="my-4">
 
             <div class="row g-2 ">
-
-                <div class="col-4">
-                    <div class="card text-start">
-                        <div class="card-body" style="height: 300px;">
-                            <canvas id="pieChart"></canvas>
-                        </div>
-                    </div>
+                <div class="p-2 ">
+                    <h4 class="">Visitors</h4>
+                    <h1 class="text-center">
+                        {{ data.visitors_count_display }}
+                    </h1>
                 </div>
-
-                <div class="col-4">
-                    <div class="card text-start">
-                        <div class="card-body" style="height: 300px;">
-                            <div class="">
-                                <h4 class="card-title">Visitors</h4>
-                                <h1 class="text-center">
-                                    {{ data.visitors_count_display }}
-                                </h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-4">
-                    <div class="card text-start">
-                        <div class="card-body" style="height: 300px;">
-                            <canvas id="sideChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
-            <div>
-                <canvas id="LineChart"></canvas>
-
-            </div>
+            <hr class="my-4">
+            <canvas id="mainChart"></canvas>
         </div>
 
         <div class="my-2">
@@ -167,12 +155,19 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
     // Bar chart data and config
     const barChartData = {
-        labels: [1, 2, 3, 4, 5, 6],
-        datasets: [{
-            label: '# of click',
-            data: [12, 56, 89, 12, 5, 6],
-            borderWidth: 1
-        }]
+        labels: JSON.parse('{{data.bar_chart.labels | tojson | safe}}'),
+        datasets: [
+            {
+                label: 'Web A',
+                data: JSON.parse('{{data.bar_chart.dataA | tojson | safe}}'),
+                borderWidth: 1
+            },
+            {
+                label: 'Web B',
+                data: JSON.parse('{{data.bar_chart.dataB | tojson | safe}}'),
+                borderWidth: 1
+            }
+        ]
     };
 
     const barChartConfig = {
@@ -185,44 +180,20 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         }
     };
 
-    // Pie chart data and config
-    const pieChartData = {
-        labels: ['A', 'B'],
-        datasets: [{
-            label: 'Visitors',
-            data: ['{{data.visitors_count.A}}', '{{data.visitors_count.B}}'],
-            borderWidth: 1
-        }]
-    };
-
-    const pieChartConfig = {
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Visitors Count'
-                }
-            }
-        }
-    };
-
     // Line chart data and config
     const lineChartData = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: JSON.parse('{{data.line_chart.labels | tojson | safe}}'),
         datasets: [{
-            label: 'Dataset 1',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Web A',
+            data: JSON.parse('{{data.line_chart.dataA | tojson | safe}}'),
             borderColor: "#5EC57E",
             backgroundColor: "#fff",
         },
         {
-            label: 'Dataset 2',
-            data: [20, 30, 14, 12, 10, 8],
-            borderColor: "#5EC57E",
+            labels: JSON.parse('{{data.line_chart.labels | tojson | safe}}'),
+            label: 'Web B',
+            data: JSON.parse('{{data.line_chart.dataB | tojson | safe}}'),
+            borderColor: "#f10E",
             backgroundColor: "#fff",
         }
         ]
@@ -237,7 +208,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 },
                 title: {
                     display: true,
-                    text: 'Line Chart'
+                    text: 'Click Count'
                 }
             }
         }
@@ -245,8 +216,6 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
     // Create charts using the function
     createChart('bar', 'mainChart', { data: barChartData, options: barChartConfig.options });
-    createChart('pie', 'pieChart', { data: pieChartData, options: pieChartConfig.options });
-    createChart('pie', 'sideChart', { data: pieChartData, options: pieChartConfig.options });
     createChart('line', 'LineChart', { data: lineChartData, options: lineChartConfig.options });
 </script>
 
