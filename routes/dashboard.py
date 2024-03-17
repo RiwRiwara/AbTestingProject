@@ -27,7 +27,7 @@ def dashboard():
     if is_logged_in() and session['admin']:
         page = request.args.get('page') or 'all'
         button = request.args.get('button') or 'all'
-        time_frame = request.args.get('time_frame') or 'month'
+        time_frame = request.args.get('time_frame') or 'seven'
 
         visitors_count_A = db.visitors.count_documents({'page': 'A'})
         visitors_count_B = db.visitors.count_documents({'page': 'B'})
@@ -56,6 +56,9 @@ def dashboard():
             line_label = [(today - timedelta(days=i)).strftime('%Y-%m-%d') for i in range(30)]
         line_chart_data_A = []
         line_chart_data_B = []
+
+        # short line label
+        line_label = sorted(line_label, reverse=False)
 
         for date_str in line_label:
             # Convert date string to datetime object
@@ -103,7 +106,8 @@ def dashboard():
             },
             'visitors_count': {
                 'A': visitors_count_A,
-                'B': visitors_count_B
+                'B': visitors_count_B,
+                'data': [visitors_count_A, visitors_count_B],
             },
             'bar_chart': {
                 'labels': ['Save', 'Register'],

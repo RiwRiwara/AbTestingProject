@@ -122,12 +122,19 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
             <hr class="my-4">
 
-            <div class="row g-2 ">
-                <div class="p-2 ">
+            <div class="d-flex flex-row  align-items-center gap-2 ">
+                <div class="p-2 bg-white rounded d-flex flex-column justify-content-center talign-items-center"
+                    style="height: 200px;width: 250px;">
                     <h4 class="">Visitors</h4>
                     <h1 class="text-center">
                         {{ data.visitors_count_display }}
                     </h1>
+                </div>
+
+                <div class="p-2 bg-white rounded" style="height: 200px;">
+                    <canvas id="horizonChart"></canvas>
+                </div>
+                <div class="p-2 bg-white rounded" style="height: 200px;">
                 </div>
             </div>
 
@@ -214,7 +221,33 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         }
     };
 
+
+    // Bar chart data and config
+    const barChartHorizonConfig = {
+        options: {
+            indexAxis: 'y',
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    const barChartHorizonData = {
+        labels: ['Visitors A', 'Visitors B'],
+        datasets: [
+            {
+                label: 'Visitors',
+                data: JSON.parse('{{data.visitors_count.data | tojson | safe}}'),
+                borderWidth: 1,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            },
+        ]
+    };
+
     // Create charts using the function
+    createChart('bar', 'horizonChart', { data: barChartHorizonData, options: barChartHorizonConfig.options });
     createChart('bar', 'mainChart', { data: barChartData, options: barChartConfig.options });
     createChart('line', 'LineChart', { data: lineChartData, options: lineChartConfig.options });
 </script>
