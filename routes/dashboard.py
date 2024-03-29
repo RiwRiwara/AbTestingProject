@@ -1,5 +1,5 @@
 from . import labAPI
-from flask import jsonify, render_template, request, session, redirect, url_for
+from flask import jsonify, render_template, request, session, redirect, url_for, send_file
 from config.db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import flash
@@ -13,6 +13,11 @@ from io import BytesIO
 import base64
 import random
 import calendar
+import plotly.graph_objects as go
+import os
+import base64
+
+
 from datetime import datetime, timedelta
 
 def is_logged_in():
@@ -121,6 +126,44 @@ def dashboard():
             }
         }
 
-        return render_template('lab/dashboard.html', title='Dashboard', data=data, isSignificant=isSignificant)
+        base64_image = save_plotly_graph_as_base64(visitors_click_A)
+
+        return render_template('lab/dashboard.html', title='Dashboard', data=data, isSignificant=isSignificant, plotly_image=base64_image)
     else:
         return redirect(url_for('labAPI.login_admin_lab'))
+
+
+
+def save_plotly_graph_as_base64(conversion_A):
+    # Calculate the progress towards the target
+    progress = min(conversion_A / 5000, 1.0)  # Limit progress to maximum of 1
+    progress_percentage = min(conversion_A / 5000 * 100, 100)  # Limit progress to maximum of 100%
+    progress_label = f"{conversion_A}/5000 ({progress_percentage:.2f}%)"
+
+    fig = go.Figure(go.Indicator(
+        mode="gauge+number",
+        value=progress,
+        domain={'x': [0, 1], 'y': [0, 1]},
+        title={'text': "Conversion A Progress"},
+        gauge={
+            'axis': {'range': [0, 1]},
+            'steps': [
+                {'range': [0, 0.5], 'color': "lightgray"},
+                {'range': [0.5, 0.75], 'color': "lightgray"},
+                {'range': [0.75, 1], 'color': "lightgray"}],
+            'threshold': {'line': {'color': "red", 'width': 4}, 'thickness': 0.75, 'value': progress}}
+    ))
+
+
+    fig.add_annotation(
+        text=progress_label,
+        x=0.5,
+        y=0.5,
+        showarrow=False,
+        font=dict(size=20)
+    )
+
+
+    img_bytes = fig.to_image(format="png")
+    base64_encoded_img = base64.b64encode(img_bytes).decode('utf-8')
+    return base64_encoded_img

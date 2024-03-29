@@ -160,17 +160,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                     <canvas id="horizonChart"></canvas>
                 </div>
                 <div class="p-2 bg-white rounded w-100" style="height: 200px;">
-                    <p>Web A</p>
-                    <div class="container-bar">
-                        <div class="progress-value" style="width: {{(data.visitors_count.A * 100) / 5000}}%;">
-                            {{data.visitors_count.A}}/5000</div>
-                    </div>
-
-                    <p>Web B</p>
-                    <div class="container-bar">
-                        <div class="progress-value " style="width: {{(data.visitors_count.A * 100) / 5000}}%;">
-                            {{data.visitors_count.B}}/5000</div>
-                    </div>
+                    <img src="data:image/png;base64,{{ plotly_image }}" alt="Plotly Graph" width="300" height="180">
                 </div>
             </div>
 

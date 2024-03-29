@@ -4,10 +4,6 @@ import scipy.stats as scs
 import matplotlib.ticker as mtick
 import seaborn as sns
 
-roboto = {"fontname": "Roboto", "size": "12"}
-roboto_title = {"fontname": "Roboto", "size": "14", "weight": "bold"}
-roboto_bold = {"fontname": "Roboto", "size": "12", "weight": "bold"}
-roboto_small = {"fontname": "Roboto", "size": "10"}
 
 
 class Frequentist(object):
@@ -166,7 +162,6 @@ class Frequentist(object):
             ax.get_ylim()[1] * 0.8,
             "Observed\ndifference: {:.2%}".format(self.relative_difference),
             color="tab:red",
-            **roboto,
         )
 
         if self.tail_direction == "left":
@@ -208,7 +203,6 @@ class Frequentist(object):
             ax.get_xlim()[0],
             ax.get_ylim()[1] * 1.25,
             "Z-test visualisation",
-            **roboto_title,
         )
 
         ax.text(
@@ -216,7 +210,6 @@ class Frequentist(object):
             ax.get_ylim()[1] * 1.18,
             "Displays the expected distribution of the difference between the"
             " means under the null hypothesis.",
-            **roboto,
         )
 
         sns.despine(left=True)
@@ -257,7 +250,6 @@ class Frequentist(object):
             "A",
             color="tab:blue",
             horizontalalignment="center",
-            **roboto_bold,
         )
 
         # Label B at its apex
@@ -267,7 +259,6 @@ class Frequentist(object):
             "B",
             color="tab:red",
             horizontalalignment="center",
-            **roboto_bold,
         )
 
         # Add critical value lines depending on two vs. one tail and left vs. right
@@ -284,7 +275,6 @@ class Frequentist(object):
                 "Critical value",
                 color="tab:blue",
                 rotation=270,
-                **roboto_small,
             )
         elif self.tail_direction == "right":
             ax.axvline(
@@ -299,7 +289,6 @@ class Frequentist(object):
                 "Critical value",
                 color="tab:blue",
                 rotation=270,
-                **roboto_small,
             )
         else:
             ax.axvline(
@@ -314,7 +303,6 @@ class Frequentist(object):
                 "Critical value",
                 color="tab:blue",
                 rotation=270,
-                **roboto_small,
             )
 
             ax.axvline(
@@ -329,7 +317,6 @@ class Frequentist(object):
                 "Critical value",
                 color="tab:blue",
                 rotation=270,
-                **roboto_small,
             )
 
         # Fill in the power and annotate
@@ -358,7 +345,6 @@ class Frequentist(object):
             ax.get_ylim()[1] * 0.8,
             f"Power: {self.power:.2%}",
             horizontalalignment="left",
-            **roboto,
         )
 
         # Title
@@ -366,7 +352,6 @@ class Frequentist(object):
             ax.get_xlim()[0],
             ax.get_ylim()[1] * 1.25,
             "Statistical power",
-            **roboto_title,
         )
 
         # Subtitle
@@ -374,7 +359,6 @@ class Frequentist(object):
             ax.get_xlim()[0],
             ax.get_ylim()[1] * 1.17,
             "Illustrates the likelihood of avoiding a false negative/type II" " error",
-            **roboto,
         )
 
         ax.xaxis.set_major_formatter(mtick.PercentFormatter(1))
