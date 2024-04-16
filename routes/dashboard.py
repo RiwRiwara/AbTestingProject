@@ -46,6 +46,18 @@ def dashboard():
         visitors_click_save_B = db.click_actions.count_documents({'page': 'B', 'button': 'save'})
         visitors_click_register_B = db.click_actions.count_documents({'page': 'B', 'button': 'register'})
         
+        save_A = db.click_actions.count_documents({'page': 'A', 'button': 'save'})
+        save_B = db.click_actions.count_documents({'page': 'B', 'button': 'save'})
+        login_A = db.click_actions.count_documents({'page': 'A', 'button': 'login'})
+        login_B = db.click_actions.count_documents({'page': 'B', 'button': 'login'})
+        register_A = db.click_actions.count_documents({'page': 'A', 'button': 'register'})
+        register_B = db.click_actions.count_documents({'page': 'B', 'button': 'register'})
+        viewmore_A = db.click_actions.count_documents({'page': 'A', 'button': 'viewmore'})
+        viewmore_B = db.click_actions.count_documents({'page': 'B', 'button': 'viewmore'})
+
+        
+        
+        
         line_label = []
         if time_frame == 'month':
             today = datetime.now()
@@ -62,30 +74,46 @@ def dashboard():
         line_chart_data_A = []
         line_chart_data_B = []
 
-        # short line label
         line_label = sorted(line_label, reverse=False)
-
         for date_str in line_label:
-            # Convert date string to datetime object
             date = datetime.strptime(date_str, "%Y-%m-%d")
-            
-            # Convert datetime object to datetime at midnight
             date_midnight = datetime.combine(date, datetime.min.time())
-            
-            # Count documents for page A
             clicks_A = db.click_actions.count_documents({'page': 'A', 'date_click': {"$gte": date_midnight, "$lt": date_midnight + timedelta(days=1)}})
             line_chart_data_A.append(clicks_A)
-
-            # Count documents for page B
             clicks_B = db.click_actions.count_documents({'page': 'B', 'date_click': {"$gte": date_midnight, "$lt": date_midnight + timedelta(days=1)}})
             line_chart_data_B.append(clicks_B)
 
 
+        bar_chart_labels = ['Buy', 'Register', 'Login', 'View More']
+        bar_chart_data_A = [save_A, register_A, login_A, viewmore_A]
+        bar_chart_data_B = [save_B, register_B, login_B, viewmore_B]
 
+        # Check page
         if page == 'all':
             visitors_count_display = visitors_count_A + visitors_count_B
         else:
             visitors_count_display = db.visitors.count_documents({'page': page})
+            
+        #check button
+        if button == 'all':
+            pass 
+        elif button == 'save':
+            bar_chart_labels = ['Buy']
+            bar_chart_data_A = [save_A]
+            bar_chart_data_B = [save_B]     
+        elif button == 'register':
+            bar_chart_labels = ['Register']
+            bar_chart_data_A = [register_A]
+            bar_chart_data_B = [register_B]
+        elif button == 'login':
+            bar_chart_labels = ['Login']
+            bar_chart_data_A = [login_A]
+            bar_chart_data_B = [login_B]
+        elif button == 'viewmore':
+            bar_chart_labels = ['View More']
+            bar_chart_data_A = [viewmore_A]
+            bar_chart_data_B = [viewmore_B]
+                
 
         test = calculate_frequentist(visitors_count_A, visitors_count_B, visitors_click_A, visitors_click_B, 0.05, True)
 
@@ -95,19 +123,22 @@ def dashboard():
 
         z_score, p_value = test.z_test()
         isSignificant = p_value < 0.05
+        
 
 
         data = {
             'page': page,
             'visitors_click_A': visitors_click_A,
             'visitors_click_B': visitors_click_B,
+            'convertion_rate_A': visitors_count_A / (visitors_count_A + visitors_count_B) * 100,
+            'convertion_rate_B': visitors_count_B / (visitors_count_A + visitors_count_B) * 100,
             'button': button,
             'visitors_count_display': visitors_count_display,
             'frequentist': {
                 'z_score': z_score,
                 'p_value': p_value,
                 'power': power,
-                'test' : test
+                'test' : test,
             },
             'visitors_count': {
                 'A': visitors_count_A,
@@ -115,9 +146,9 @@ def dashboard():
                 'data': [visitors_count_A, visitors_count_B],
             },
             'bar_chart': {
-                'labels': ['Save', 'Register'],
-                'dataA': [visitors_click_save_A, visitors_click_register_A],
-                'dataB': [visitors_click_save_B, visitors_click_register_B]
+                'labels': bar_chart_labels,
+                'dataA': bar_chart_data_A,
+                'dataB': bar_chart_data_B
             },
             'line_chart': {
                 'labels': line_label,
@@ -125,10 +156,15 @@ def dashboard():
                 'dataB': line_chart_data_B
             }
         }
+        
+        data['amoreb'] = data['convertion_rate_A'] > data['convertion_rate_B']
+        data['convertion_rate_A'] = "{:.2f}".format(data['convertion_rate_A'])
+        data['convertion_rate_B'] = "{:.2f}".format(data['convertion_rate_B'])
 
-        base64_image = save_plotly_graph_as_base64(visitors_click_A)
+        #base64_image = save_plotly_graph_as_base64(visitors_click_A)
 
-        return render_template('lab/dashboard.html', title='Dashboard', data=data, isSignificant=isSignificant, plotly_image=base64_image)
+        #return render_template('lab/dashboard.html', title='Dashboard', data=data, isSignificant=isSignificant, plotly_image=base64_image)
+        return render_template('lab/dashboard.html', title='Dashboard', data=data, isSignificant=isSignificant)
     else:
         return redirect(url_for('labAPI.login_admin_lab'))
 

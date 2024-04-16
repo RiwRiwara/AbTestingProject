@@ -45,9 +45,13 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
                 <select class="form-select" name="button" onchange="this.form.submit()">
                     <option value="all" {% if request.args.get('button')=='all' %} selected {% endif %}>All</option>
-                    <option value="save" {% if request.args.get('button')=='save' %} selected {% endif %}>Save</option>
+                    <option value="save" {% if request.args.get('button')=='save' %} selected {% endif %}>Buy</option>
                     <option value="register" {% if request.args.get('button')=='register' %} selected {% endif %}>
                         Register</option>
+                    <option value="login" {% if request.args.get('button')=='login' %} selected {% endif %}>Login
+                    </option>
+                    <option value="viewmore" {% if request.args.get('button')=='viewmore' %} selected {% endif %}>View
+                        more</option>
                 </select>
 
             </form>
@@ -67,26 +71,29 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">A</th>
-                        <td>{{ data.visitors_count.A }}</td>
-                        <td>{{ data.visitors_click_A }}</td>
-
-                        <td><i class="fas fa-arrow-right-long"></i></td>
-                        <td>
-                            {{ data.visitors_count.A/(data.visitors_count.A+data.visitors_count.B)*100 }}%
-                        </td>
+                        <th {% if data.amoreb %}style="background-color: #5EC57D;" {% endif %} scope="row">A</th>
+                        <td {% if data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{ data.visitors_count.A
+                            }}</td>
+                        <td {% if data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{ data.visitors_click_A
+                            }}</td>
+                        <td {% if data.amoreb %}style="background-color: #5EC57D;" {% endif %}><i
+                                class="fas fa-arrow-right-long"></i></td>
+                        <td {% if data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{ data.convertion_rate_A
+                            }}%</td>
                     </tr>
 
                     <tr>
-                        <th scope="row">B</th>
-                        <td>{{ data.visitors_count.B }}</td>
-                        <td>{{ data.visitors_click_B }}</td>
-
-                        <td><i class="fas fa-arrow-right-long"></i></td>
-                        <td>
-                            {{ data.visitors_count.B/(data.visitors_count.A+data.visitors_count.B)*100 }}%
-                        </td>
+                        <th {% if not data.amoreb %}style="background-color: #5EC57D;" {% endif %} scope="row">B</th>
+                        <td {% if not data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{
+                            data.visitors_count.B }}</td>
+                        <td {% if not data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{
+                            data.visitors_click_B }}</td>
+                        <td {% if not data.amoreb %}style="background-color: #5EC57D;" {% endif %}><i
+                                class="fas fa-arrow-right-long"></i></td>
+                        <td {% if not data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{
+                            data.convertion_rate_B }}%</td>
                     </tr>
+
 
                 </tbody>
             </table>
@@ -96,14 +103,19 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
             <div class="px-3 py-4 shadow-md rounded">
                 <div class="card text-start p-2">
                     <div class="d-flex justify-content-start gap-4 px-4">
-                        <div class="d-flex flex-column justify-content-center">
-                            <h5 class="fw-bold">Power</h5>
-                            <h5 class="">{{data.frequentist.power}}</h5>
 
+                        <div class="d-flex flex-column justify-content-center">
+                            <h5 class="fw-bold">Significant</h5>
+                            {% if isSignificante %}
+                            <h5 class="">{{ 'Yes' }}</h5>
+                            {% else %}
+                            <h5 class="">{{ 'No' }}</h5>
+                            {% endif %}
                         </div>
+
                         <div class="d-flex flex-column justify-content-center">
                             <h5 class="fw-bold">p value</h5>
-                            <h5 class="">{{data.frequentist.p_value}}</h5>
+                            <h5 class="">{{"{}".format(data.frequentist.p_value)}}</h5>
                         </div>
                     </div>
                     <div class="card-body">
@@ -159,8 +171,16 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 <div class="p-2 bg-white rounded" style="height: 200px;">
                     <canvas id="horizonChart"></canvas>
                 </div>
-                <div class="p-2 bg-white rounded w-100" style="height: 200px;">
-                    <img src="data:image/png;base64,{{ plotly_image }}" alt="Plotly Graph" width="300" height="180">
+                <div class="p-2 bg-white d-flex align-items-center justify-content-center flex-column rounded w-100 text-center"style="height: 200px;" >
+                    <!-- <img src="data:image/png;base64,{{ plotly_image }}" alt="Plotly Graph" width="300" height="180"> -->
+                    <h5 class="">95% Statistical
+                        Significance</h5>
+                    {% if isSignificante %}
+                    <h3 class="fw-bold">{{ 'Yes' }}</h3>
+                    {% else %}
+                    <h3 class="fw-bold">{{ 'No' }}</h3>
+                    {% endif %}
+
                 </div>
             </div>
 
@@ -219,14 +239,14 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         datasets: [{
             label: 'Web A',
             data: JSON.parse('{{data.line_chart.dataA | tojson | safe}}'),
-            borderColor: "#5EC57E",
+            borderColor: "#89CFF0",
             backgroundColor: "#fff",
         },
         {
             labels: JSON.parse('{{data.line_chart.labels | tojson | safe}}'),
             label: 'Web B',
             data: JSON.parse('{{data.line_chart.dataB | tojson | safe}}'),
-            borderColor: "#f10E",
+            borderColor: "#F8C8DC",
             backgroundColor: "#fff",
         }
         ]
@@ -267,7 +287,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 label: 'Visitors',
                 data: JSON.parse('{{data.visitors_count.data | tojson | safe}}'),
                 borderWidth: 1,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                backgroundColor: ['#89CFF0', '#F8C8DC'],
             },
         ]
     };

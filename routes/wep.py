@@ -8,6 +8,8 @@ from datetime import datetime
 @defaultAPI.route('/')
 def index():
     return render_template('index.html', title='Home A')
+
+
 @defaultAPI.route('/A')
 def indexA():
     page = 'A'

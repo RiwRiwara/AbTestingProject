@@ -19,7 +19,7 @@ function handleButtonClick(page, button) {
     })
         .then(response => {
             if (response.ok) {
-                alert(button + ' action has been saved.');
+                //alert(button + ' action has been saved.');
             } else {
                 alert('Failed to ' + button + 'buy action.');
             }

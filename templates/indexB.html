@@ -3,7 +3,7 @@
 {% extends 'layout/layout_login.html' %} {% block title %}Title{% endblock %} {%
 block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 <div class="alert alert-success">{{ messages[0] }}</div>
-{% endif %} {% endwith %} {% include './components/nav2.html' %}
+{% endif %} {% endwith %} {% include './components/nav3.html' %}
 
 <section class="d-flex justify-content-around container-fluid"
   style="margin-top: 5rem; background-color: rgb(244, 244, 244)">
@@ -40,22 +40,22 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
   <div class="d-flex justify-content-between gap-4">
     <div class="image-container">
       <img src="{{ url_for('static', filename='img/main/section-1/image 6.png') }}" alt="" class="img-fluid" />
-      <button class="btn fw-bold text-white fs-5 my-2 nbtn w-75" onclick="handleButtonClick('B', 'best-seller')"
+      <button class="btn fw-bold text-white fs-5 my-2 nbtn w-75"
         style="background-color: #F398C1;">BEST SELLER</button>
 
-      <button class="btn btn-light fw-bold shadow-sm" >ดูเพิ่มเติม</button>
+      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')" >ดูเพิ่มเติม</button>
     </div>
     <div class="image-container">
       <img src="{{ url_for('static', filename='img/main/section-1/image 7.png') }}" alt="" class="img-fluid" />
-      <button class="btn btn-light fw-bold shadow-sm" >ดูเพิ่มเติม</button>
+      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')" >ดูเพิ่มเติม</button>
     </div>
     <div class="image-container">
       <img src="{{ url_for('static', filename='img/main/section-1/image 8.png') }}" alt="" class="img-fluid" />
-      <button class="btn btn-light fw-bold shadow-sm" >ดูเพิ่มเติม</button>
+      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')" >ดูเพิ่มเติม</button>
     </div>
     <div class="image-container">
       <img src="{{ url_for('static', filename='img/main/section-1/image 9.png') }}" alt="" class="img-fluid" />
-      <button class="btn btn-light fw-bold shadow-sm" >ดูเพิ่มเติม</button>
+      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')" >ดูเพิ่มเติม</button>
     </div>
   </div>
 </section>

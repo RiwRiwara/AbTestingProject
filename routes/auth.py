@@ -66,6 +66,7 @@ def test_session():
 
 def is_logged_in():
     return 'user_id' in session
+
 def is_not_logged_in():
     return not is_logged_in()
 

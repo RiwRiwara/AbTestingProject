@@ -49,6 +49,7 @@ def logout():
     return redirect(url_for('labAPI.login_admin_lab'))
 
 
+
     
 @labAPI.route('/reach', methods=['GET'])
 def reach():
@@ -58,6 +59,15 @@ def reach():
         visitors_click_A = db.click_actions.count_documents({'page': 'A'})
         visitors_count_B = db.visitors.count_documents({'page': 'B'})
         visitors_click_B = db.click_actions.count_documents({'page': 'B'})
+        
+        save_A = db.click_actions.count_documents({'page': 'A', 'button': 'save'})
+        save_B = db.click_actions.count_documents({'page': 'B', 'button': 'save'})
+        login_A = db.click_actions.count_documents({'page': 'A', 'button': 'login'})
+        login_B = db.click_actions.count_documents({'page': 'B', 'button': 'login'})
+        register_A = db.click_actions.count_documents({'page': 'A', 'button': 'register'})
+        register_B = db.click_actions.count_documents({'page': 'B', 'button': 'register'})
+        viewmore_A = db.click_actions.count_documents({'page': 'A', 'button': 'viewmore'})
+        viewmore_B = db.click_actions.count_documents({'page': 'B', 'button': 'viewmore'})
 
 
         data = {
@@ -69,6 +79,22 @@ def reach():
                 'A': visitors_click_A,
                 'B': visitors_click_B
             },
+            'save': {
+                'A': save_A,
+                'B': save_B
+                },
+            'login': {
+                'A': login_A,
+                'B': login_B
+                },
+            'register': {
+                'A': register_A,
+                'B': register_B
+                },
+            'viewmore': {
+                'A': viewmore_A,
+                'B': viewmore_B
+            }
         }
         return render_template('lab/reach.html', title='Reach', data=data)
     else:
@@ -90,6 +116,11 @@ def calculator():
 
         visitors_click_A = db.click_actions.count_documents({'page': 'A'})
         visitors_click_B = db.click_actions.count_documents({'page': 'B'})
+        
+                
+
+
+
 
         alpha = float(request.args.get('significance_level') or 0.05) 
         two_tails = request.args.get('method') or 'two'
@@ -135,30 +166,34 @@ def calculator():
         isSignificant = p_value < alpha
 
         
-        fig_test = test.plot_test_visualisation()
-        fig_power = test.plot_power()
+        #fig_test = test.plot_test_visualisation()
+        #fig_power = test.plot_power()
 
         # Convert the test figure to a bytes-like object
-        buf_test = BytesIO()
-        fig_test.savefig(buf_test, format='png')
-        buf_test.seek(0)
+        
+        #buf_test = BytesIO()
+        #fig_test.savefig(buf_test, format='png')
+        #buf_test.seek(0)
 
         # Encode the bytes-like object of the test figure as a base64 string
-        fig_test_base64 = base64.b64encode(buf_test.read()).decode('utf-8')
+        
+        #fig_test_base64 = base64.b64encode(buf_test.read()).decode('utf-8')
 
         # Close the test figure to release memory
-        plt.close(fig_test)
+        
+       # plt.close(fig_test)
 
         # Convert the power figure to a bytes-like object
-        buf_power = BytesIO()
-        fig_power.savefig(buf_power, format='png')
-        buf_power.seek(0)
+        
+       # buf_power = BytesIO()
+        #fig_power.savefig(buf_power, format='png')
+       # buf_power.seek(0)
 
         # Encode the bytes-like object of the power figure as a base64 string
-        fig_power_base64 = base64.b64encode(buf_power.read()).decode('utf-8')
+        #fig_power_base64 = base64.b64encode(buf_power.read()).decode('utf-8')
 
         # Close the power figure to release memory
-        plt.close(fig_power)
+        #plt.close(fig_power)
 
         data = {
             'visitors_count': {
@@ -172,7 +207,10 @@ def calculator():
         }
 
         # Pass the base64 strings to the template
-        return render_template('lab/calculator.html', title='Calculator', fig_test=fig_test_base64, fig_power=fig_power_base64,
+        #return render_template('lab/calculator.html', title='Calculator', fig_test=fig_test_base64, fig_power=fig_power_base64,
+        #                       test=test, z_score=z_score, p_value=p_value, power=power, uplift_a=uplift_a, uplift_b=uplift_b, isAmB=isAmB, isSignificant=isSignificant,
+          #                     data=data)
+        return render_template('lab/calculator.html', title='Calculator', 
                                test=test, z_score=z_score, p_value=p_value, power=power, uplift_a=uplift_a, uplift_b=uplift_b, isAmB=isAmB, isSignificant=isSignificant,
                                data=data)
     else:
