@@ -115,7 +115,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
                         <div class="d-flex flex-column justify-content-center">
                             <h5 class="fw-bold">p value</h5>
-                            <h5 class="">{{"{}".format(data.frequentist.p_value)}}</h5>
+                            <h5 class="">{{"{:.4f}".format(data.frequentist.p_value)}}</h5>
                         </div>
                     </div>
                     <div class="card-body">

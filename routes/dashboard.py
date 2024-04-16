@@ -158,8 +158,8 @@ def dashboard():
         }
         
         data['amoreb'] = data['convertion_rate_A'] > data['convertion_rate_B']
-        data['convertion_rate_A'] = "{:.2f}".format(data['convertion_rate_A'])
-        data['convertion_rate_B'] = "{:.2f}".format(data['convertion_rate_B'])
+        data['convertion_rate_A'] = "{:.4f}".format(data['convertion_rate_A'])
+        data['convertion_rate_B'] = "{:.4f}".format(data['convertion_rate_B'])
 
         #base64_image = save_plotly_graph_as_base64(visitors_click_A)
 
