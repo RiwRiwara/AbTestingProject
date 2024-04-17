@@ -44,7 +44,6 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 </select>
 
                 <select class="form-select" name="button" onchange="this.form.submit()">
-                    <option value="all" {% if request.args.get('button')=='all' %} selected {% endif %}>All</option>
                     <option value="save" {% if request.args.get('button')=='save' %} selected {% endif %}>Buy</option>
                     <option value="register" {% if request.args.get('button')=='register' %} selected {% endif %}>
                         Register</option>
@@ -52,6 +51,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                     </option>
                     <option value="viewmore" {% if request.args.get('button')=='viewmore' %} selected {% endif %}>View
                         more</option>
+                    <option value="all" {% if request.args.get('button')=='all' %} selected {% endif %}>All</option>
                 </select>
 
             </form>
@@ -64,7 +64,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                     <tr>
                         <th scope="col"></th>
                         <th scope="col">Visitors</th>
-                        <th scope="col">Conversion</th>
+                        <th scope="col">Conversions</th>
                         <th scope="col"></th>
                         <th scope="col">Conversion rate</th>
                     </tr>
@@ -102,7 +102,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         <div class="my-4">
             <div class="px-3 py-4 shadow-md rounded">
                 <div class="card text-start p-2">
-                    <div class="d-flex justify-content-start gap-4 px-4">
+                    <div class="d-flex justify-content-between gap-4 px-4 pt-4">
 
                         <div class="d-flex flex-column justify-content-center">
                             <h5 class="fw-bold">Significant</h5>
@@ -122,22 +122,28 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
                         <p>
                             {% if isSignificant %}
+                        <p class="h4 fw-bold" style="color: #5EC57E;">
                             การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!
-                            {% if amoreb %}
-                            ตัวแปร <span class="h5 fw-bold ">A</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span
-                                class="h5 fw-bold ">B อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
-                            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">A</span>
-                            จะเพิ่มประสิทธิภาพให้เว็บของคุณ
-                            {% else %}
+                        </p>
+                        {% if amoreb %}
+                        ตัวแปร <span class="fw-bold ">A</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span
+                            class="fw-bold ">B อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
+                        ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="fw-bold ">A</span>
+                        จะเพิ่มประสิทธิภาพให้เว็บของคุณ
+                        {% else %}
 
-                            ตัวแปร <span class="h5 fw-bold ">B</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span
-                                class="h5 fw-bold ">A อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
-                            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">B</span>
-                            จะเพิ่มประสิทธิภาพให้เว็บของคุณ
-                            {% endif %}
-                            {% else %}
+                        ตัวแปร <span class="fw-bold ">B</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span
+                            class="fw-bold ">A อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
+                        ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="fw-bold ">B</span>
+                        จะเพิ่มประสิทธิภาพให้เว็บของคุณ
+                        {% endif %}
+                        {% else %}
+
+                        <p class="h4 fw-bold" style="color: #E4A11C;">
                             การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
-                            {% endif %}
+                        </p>
+                        <p>แนะนำให้ทำการทดสอบอีกครั้ง</p>
+                        {% endif %}
                         </p>
 
                     </div>
