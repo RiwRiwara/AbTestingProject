@@ -354,6 +354,9 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                         return value.toFixed(2) + '%'; // Format to two decimal places
                     },
                     color: 'red' // Custom text color for data labels
+                },
+                legend: {
+                    display: false
                 }
             }
         }
