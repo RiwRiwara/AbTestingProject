@@ -93,29 +93,44 @@ def dashboard():
             visitors_count_display = visitors_count_A + visitors_count_B
         else:
             visitors_count_display = db.visitors.count_documents({'page': page})
-            
+        
+        # Chekc click
+        click_count_A = visitors_click_A
+        click_count_B = visitors_click_B
+        
         #check button
         if button == 'all':
             pass 
         elif button == 'save':
             bar_chart_labels = ['Buy']
             bar_chart_data_A = [save_A]
-            bar_chart_data_B = [save_B]     
+            bar_chart_data_B = [save_B]  
+            click_count_A = visitors_click_save_A
+            click_count_B = visitors_click_save_B   
+            
         elif button == 'register':
             bar_chart_labels = ['Register']
             bar_chart_data_A = [register_A]
             bar_chart_data_B = [register_B]
+            click_count_A = visitors_click_register_A
+            click_count_B = visitors_click_register_B
+            
         elif button == 'login':
             bar_chart_labels = ['Login']
             bar_chart_data_A = [login_A]
             bar_chart_data_B = [login_B]
+            click_count_A = login_A
+            click_count_B = login_B
+            
         elif button == 'viewmore':
             bar_chart_labels = ['View More']
             bar_chart_data_A = [viewmore_A]
             bar_chart_data_B = [viewmore_B]
+            click_count_A = viewmore_A
+            click_count_B = viewmore_B
                 
 
-        test = calculate_frequentist(visitors_count_A, visitors_count_B, visitors_click_A, visitors_click_B, 0.05, True)
+        test = calculate_frequentist(visitors_count_A, visitors_count_B, click_count_A, click_count_B, 0.05, True)
 
         test.get_z_value()
         z_score, p_value = test.z_test()
@@ -128,10 +143,10 @@ def dashboard():
 
         data = {
             'page': page,
-            'visitors_click_A': visitors_click_A,
-            'visitors_click_B': visitors_click_B,
-            'convertion_rate_A': visitors_count_A / (visitors_count_A + visitors_count_B) * 100,
-            'convertion_rate_B': visitors_count_B / (visitors_count_A + visitors_count_B) * 100,
+            'visitors_click_A': click_count_A,
+            'visitors_click_B': click_count_B,
+            'convertion_rate_A': click_count_A / (visitors_count_A ) * 100,
+            'convertion_rate_B': click_count_B / (visitors_count_B ) * 100,
             'button': button,
             'visitors_count_display': visitors_count_display,
             'frequentist': {
@@ -158,13 +173,20 @@ def dashboard():
         }
         
         data['amoreb'] = data['convertion_rate_A'] > data['convertion_rate_B']
-        data['convertion_rate_A'] = "{:.4f}".format(data['convertion_rate_A'])
-        data['convertion_rate_B'] = "{:.4f}".format(data['convertion_rate_B'])
+        data['convertion_rate_A'] = "{:.2f}".format(data['convertion_rate_A'])
+        data['convertion_rate_B'] = "{:.2f}".format(data['convertion_rate_B'])
+        xper = 0
+        if data['convertion_rate_A'] > data['convertion_rate_B']:
+            xper = ((float(data['convertion_rate_A']) - float(data['convertion_rate_B'])) / float(data['convertion_rate_A'])) * 100
+        else:
+            xper =( (float(data['convertion_rate_B']) - float(data['convertion_rate_A'])) / float(data['convertion_rate_B'])) * 100
+        
+        print(xper)
 
         #base64_image = save_plotly_graph_as_base64(visitors_click_A)
 
         #return render_template('lab/dashboard.html', title='Dashboard', data=data, isSignificant=isSignificant, plotly_image=base64_image)
-        return render_template('lab/dashboard.html', title='Dashboard', data=data, isSignificant=isSignificant)
+        return render_template('lab/dashboard.html', title='Dashboard', data=data, isSignificant=isSignificant, xper=xper)
     else:
         return redirect(url_for('labAPI.login_admin_lab'))
 

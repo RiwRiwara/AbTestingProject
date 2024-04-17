@@ -64,7 +64,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                     <tr>
                         <th scope="col"></th>
                         <th scope="col">Visitors</th>
-                        <th scope="col">Convertions</th>
+                        <th scope="col">Conversion</th>
                         <th scope="col"></th>
                         <th scope="col">Conversion rate</th>
                     </tr>
@@ -119,9 +119,29 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                         </div>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Variant B's conversion rate (1.14%) was 14% higher than
-                            variant A's conversion rate (1.00%). You can be 95%
-                            confident that variant B will perform better than variant A.</p>
+
+                        <p>
+                            {% if isSignificante %}
+                            การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!
+                            {% if amoreb %}
+                            ตัวแปร <span class="h5 fw-bold ">A</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span
+                                class="h5 fw-bold ">B อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
+                            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">A</span>
+                            จะเพิ่มประสิทธิภาพให้เว็บของคุณ
+                            {% else %}
+
+                            ตัวแปร <span class="h5 fw-bold ">B</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span
+                                class="h5 fw-bold ">A อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
+                            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">B</span>
+                            จะเพิ่มประสิทธิภาพให้เว็บของคุณ
+                            {% endif %}
+                            {% else %}
+                            การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
+                            {% endif %}
+
+
+
+                        </p>
 
                     </div>
 
@@ -171,7 +191,8 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 <div class="p-2 bg-white rounded" style="height: 200px;">
                     <canvas id="horizonChart"></canvas>
                 </div>
-                <div class="p-2 bg-white d-flex align-items-center justify-content-center flex-column rounded w-100 text-center"style="height: 200px;" >
+                <div class="p-2 bg-white d-flex align-items-center justify-content-center flex-column rounded w-100 text-center"
+                    style="height: 200px;">
                     <!-- <img src="data:image/png;base64,{{ plotly_image }}" alt="Plotly Graph" width="300" height="180"> -->
                     <h5 class="">95% Statistical
                         Significance</h5>
