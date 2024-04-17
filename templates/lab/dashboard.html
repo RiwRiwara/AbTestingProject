@@ -71,26 +71,26 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 </thead>
                 <tbody>
                     <tr>
-                        <th {% if data.amoreb %}style="background-color: #5EC57D;" {% endif %} scope="row">A</th>
-                        <td {% if data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{ data.visitors_count.A
+                        <th {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %} scope="row">A</th>
+                        <td {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{ data.visitors_count.A
                             }}</td>
-                        <td {% if data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{ data.visitors_click_A
+                        <td {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{ data.visitors_click_A
                             }}</td>
-                        <td {% if data.amoreb %}style="background-color: #5EC57D;" {% endif %}><i
+                        <td {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}><i
                                 class="fas fa-arrow-right-long"></i></td>
-                        <td {% if data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{ data.convertion_rate_A
+                        <td {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{ data.convertion_rate_A
                             }}%</td>
                     </tr>
 
                     <tr>
-                        <th {% if not data.amoreb %}style="background-color: #5EC57D;" {% endif %} scope="row">B</th>
-                        <td {% if not data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{
+                        <th {% if not data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %} scope="row">B</th>
+                        <td {% if not data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{
                             data.visitors_count.B }}</td>
-                        <td {% if not data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{
+                        <td {% if not data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{
                             data.visitors_click_B }}</td>
-                        <td {% if not data.amoreb %}style="background-color: #5EC57D;" {% endif %}><i
+                        <td {% if not data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}><i
                                 class="fas fa-arrow-right-long"></i></td>
-                        <td {% if not data.amoreb %}style="background-color: #5EC57D;" {% endif %}>{{
+                        <td {% if not data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{
                             data.convertion_rate_B }}%</td>
                     </tr>
 
@@ -101,8 +101,8 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
         <div class="my-4">
             <div class="px-3 py-4 shadow-md rounded">
-                <div class="card text-start p-2">
-                    <div class="d-flex justify-content-between gap-4 px-4 pt-4">
+                <div class="card text-start p-1">
+                    <div class="d-flex flex-row gap-5 px-3 pt-3">
 
                         <div class="d-flex flex-column justify-content-center">
                             <h5 class="fw-bold">Significant</h5>

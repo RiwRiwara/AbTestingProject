@@ -140,10 +140,12 @@ def dashboard():
         
         
 
+        isSignificant = p_value < 0.05*2
 
 
         data = {
             'page': page,
+            'bg_color': "#5EC57E" if isSignificant else "#E4A11C",
             'visitors_click_A': click_count_A,
             'visitors_click_B': click_count_B,
             'convertion_rate_A': click_count_A / (visitors_count_A ) * 100,
@@ -173,7 +175,6 @@ def dashboard():
             }
         }
         
-        isSignificant = p_value < 0.05*2
         # Calculate uplift
         uplift_a = round(((click_count_A / visitors_count_A * 100) * 100) / (click_count_B / visitors_count_B * 100)-100, 4) 
         uplift_b = round(((click_count_B / visitors_count_B * 100) * 100) / (click_count_A / visitors_count_A * 100)-100, 4) 
