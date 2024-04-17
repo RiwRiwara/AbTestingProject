@@ -137,8 +137,9 @@ def dashboard():
         power = test.get_power()
 
         z_score, p_value = test.z_test()
-        isSignificant = p_value < 0.05
         
+        
+
 
 
         data = {
@@ -172,16 +173,24 @@ def dashboard():
             }
         }
         
-        data['amoreb'] = data['convertion_rate_A'] > data['convertion_rate_B']
+        isSignificant = p_value < 0.05*2
+        # Calculate uplift
+        uplift_a = round(((click_count_A / visitors_count_A * 100) * 100) / (click_count_B / visitors_count_B * 100)-100, 4) 
+        uplift_b = round(((click_count_B / visitors_count_B * 100) * 100) / (click_count_A / visitors_count_A * 100)-100, 4) 
+        print(uplift_a, uplift_b, isSignificant)
+        
+        
+        data['amoreb'] = uplift_a > uplift_b
         data['convertion_rate_A'] = "{:.2f}".format(data['convertion_rate_A'])
         data['convertion_rate_B'] = "{:.2f}".format(data['convertion_rate_B'])
+        
         xper = 0
         if data['convertion_rate_A'] > data['convertion_rate_B']:
             xper = ((float(data['convertion_rate_A']) - float(data['convertion_rate_B'])) / float(data['convertion_rate_A'])) * 100
         else:
             xper =( (float(data['convertion_rate_B']) - float(data['convertion_rate_A'])) / float(data['convertion_rate_B'])) * 100
         
-        print(xper)
+
 
         #base64_image = save_plotly_graph_as_base64(visitors_click_A)
 

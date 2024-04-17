@@ -109,6 +109,9 @@ def calculator():
         visitors_B = int(request.args.get('visitors_b') or 50000)
         conversion_A = int(request.args.get('conversions_a') or 1500)
         conversion_B = int(request.args.get('conversions_b') or 1560)
+        
+        conversion_rate_A = conversion_A / visitors_A * 100
+        conversion_rate_B = conversion_B / visitors_B * 100
 
         # data from db
         visitors_count_A = db.visitors.count_documents({'page': 'A'})
@@ -164,6 +167,7 @@ def calculator():
 
         isAmB = uplift_a > uplift_b
         isSignificant = p_value < alpha
+        print(uplift_a, uplift_b, isSignificant)
 
         
         #fig_test = test.plot_test_visualisation()
@@ -194,6 +198,10 @@ def calculator():
 
         # Close the power figure to release memory
         #plt.close(fig_power)
+        
+        bar_chart_labels = ["A Best" if isAmB  else "A", "B Best" if not isAmB  else "B"]
+        bar_chart_data_A = [ conversion_rate_A, conversion_rate_B]
+        bar_chart_data_B = [ conversion_rate_B, conversion_rate_A]
 
         data = {
             'visitors_count': {
@@ -204,14 +212,28 @@ def calculator():
                 'A': visitors_click_A,
                 'B': visitors_click_B
             },
+            'bar_chart': {
+                'labels': bar_chart_labels,
+                'dataA': bar_chart_data_A,
+                'dataB': bar_chart_data_B
+            },
+            'Abest' : "A Best" if isAmB  else "A",
+            'Bbest' : "B Best" if not isAmB  else "B",
         }
+        
+        xper = 0
+        if conversion_rate_A > conversion_rate_B:
+            xper = ((conversion_rate_A - conversion_rate_B) / conversion_rate_A) * 100
+        else:
+            xper =( (conversion_rate_B - conversion_rate_A) / conversion_rate_B) * 100
+        
 
         # Pass the base64 strings to the template
         #return render_template('lab/calculator.html', title='Calculator', fig_test=fig_test_base64, fig_power=fig_power_base64,
         #                       test=test, z_score=z_score, p_value=p_value, power=power, uplift_a=uplift_a, uplift_b=uplift_b, isAmB=isAmB, isSignificant=isSignificant,
           #                     data=data)
         return render_template('lab/calculator.html', title='Calculator', 
-                               test=test, z_score=z_score, p_value=p_value, power=power, uplift_a=uplift_a, uplift_b=uplift_b, isAmB=isAmB, isSignificant=isSignificant,
+                               test=test, z_score=z_score, xper=xper, p_value=p_value, power=power, uplift_a=uplift_a, uplift_b=uplift_b, isAmB=isAmB, isSignificant=isSignificant,
                                data=data)
     else:
         return redirect(url_for('labAPI.login_admin_lab'))

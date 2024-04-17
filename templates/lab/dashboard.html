@@ -106,7 +106,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
                         <div class="d-flex flex-column justify-content-center">
                             <h5 class="fw-bold">Significant</h5>
-                            {% if isSignificante %}
+                            {% if isSignificant %}
                             <h5 class="">{{ 'Yes' }}</h5>
                             {% else %}
                             <h5 class="">{{ 'No' }}</h5>
@@ -121,7 +121,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                     <div class="card-body">
 
                         <p>
-                            {% if isSignificante %}
+                            {% if isSignificant %}
                             การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!
                             {% if amoreb %}
                             ตัวแปร <span class="h5 fw-bold ">A</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span
@@ -138,9 +138,6 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                             {% else %}
                             การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
                             {% endif %}
-
-
-
                         </p>
 
                     </div>
@@ -196,7 +193,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                     <!-- <img src="data:image/png;base64,{{ plotly_image }}" alt="Plotly Graph" width="300" height="180"> -->
                     <h5 class="">95% Statistical
                         Significance</h5>
-                    {% if isSignificante %}
+                    {% if isSignificant %}
                     <h3 class="fw-bold">{{ 'Yes' }}</h3>
                     {% else %}
                     <h3 class="fw-bold">{{ 'No' }}</h3>
