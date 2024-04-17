@@ -243,6 +243,15 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
     const barChartConfig = {
         options: {
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Click Count'
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true
@@ -289,6 +298,11 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
     // Bar chart data and config
     const barChartHorizonConfig = {
         options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
             indexAxis: 'y',
             scales: {
                 y: {
