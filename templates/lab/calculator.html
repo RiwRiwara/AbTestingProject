@@ -87,7 +87,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         </div>
         <div>
             <button type="button" class="btn btn-primary w-100"
-                onclick="fillData('{{data.visitors_count.A}}', '{{data.visitors_click.A}}', '{{data.visitors_count.B}}', '{{data.visitors_click.B}}')">Fill
+                onclick="fillData('{{data.visitors_count.A}}', '{{data.visitors_click.A_save}}', '{{data.visitors_count.B}}', '{{data.visitors_click.B_save}}')">Fill
                 data</button>
         </div>
     </form>
@@ -172,7 +172,6 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                         <th scope="col">Visitors</th>
                         <th scope="col">Convertions</th>
                         <th scope="col">Conversion rate</th>
-                        <th scope="col">Uplift</th>
                         <!-- <th scope="col">Power</th> -->
                         <th scope="col">Z-score</th>
                         <th scope="col">P-value</th>
@@ -184,9 +183,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                         <th scope="row">{{test.visitors_A}}</th>
                         <th scope="row">{{test.conversions_A}}</th>
                         <th scope="row">{{ (test.conversions_A / test.visitors_A * 100) | round(2) }} %</th>
-                        <th scope="row">
-                            {{uplift_a }} %
-                        </th>
+
                         <th scope="row">-</th>
                         <th scope="row">-</th>
                     </tr>
@@ -196,10 +193,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                         <th scope="row">{{test.visitors_B}}</th>
                         <th scope="row">{{test.conversions_B}}</th>
                         <th scope="row">{{ (test.conversions_B / test.visitors_B * 100) | round(2) }} %</th>
-                        <th scope="row">
-                            {{ uplift_b }} %
 
-                        </th>
                         <!--
                         <th scope="row">
                             {{power | round(4) * 100}} %

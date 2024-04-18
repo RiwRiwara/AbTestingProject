@@ -119,6 +119,8 @@ def calculator():
 
         visitors_click_A = db.click_actions.count_documents({'page': 'A'})
         visitors_click_B = db.click_actions.count_documents({'page': 'B'})
+        visitors_click_A_save = db.click_actions.count_documents({'page': 'A', 'button': 'save'})
+        visitors_click_B_save = db.click_actions.count_documents({'page': 'B', 'button': 'save'})
         
                 
 
@@ -169,6 +171,11 @@ def calculator():
         isSignificant = p_value < alpha
         print(uplift_a, uplift_b, isSignificant)
 
+        xper = 0
+        xper = ((conversion_rate_A - conversion_rate_B) / conversion_rate_A) * 100
+
+            
+        xper = abs(xper)
         
         #fig_test = test.plot_test_visualisation()
         #fig_power = test.plot_power()
@@ -210,7 +217,9 @@ def calculator():
             },
             'visitors_click': {
                 'A': visitors_click_A,
-                'B': visitors_click_B
+                'B': visitors_click_B,
+                'A_save': visitors_click_A_save,
+                'B_save': visitors_click_B_save
             },
             'bar_chart': {
                 'labels': bar_chart_labels,
@@ -221,12 +230,7 @@ def calculator():
             'Bbest' : "B Best" if not isAmB  else "B",
         }
         
-        xper = 0
-        if conversion_rate_A > conversion_rate_B:
-            xper = ((conversion_rate_A - conversion_rate_B) / conversion_rate_A) * 100
-        else:
-            xper =( (conversion_rate_B - conversion_rate_A) / conversion_rate_B) * 100
-        
+
 
         # Pass the base64 strings to the template
         #return render_template('lab/calculator.html', title='Calculator', fig_test=fig_test_base64, fig_power=fig_power_base64,

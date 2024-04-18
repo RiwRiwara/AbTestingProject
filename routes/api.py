@@ -103,6 +103,7 @@ def generate_random_visitor():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
+    
 @apiAPI.route('/dell', methods=['GET'])
 def delete_all():
     db.click_actions.delete_many({})
