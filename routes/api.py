@@ -91,12 +91,13 @@ def generate_random_visitor():
     start_date = datetime.now() - timedelta(days=30)  
 
     try:
-        for _ in range(num_visitors):
-            random_date = random_datetime(start_date, datetime.now())
-            db.visitors.insert_one({
-                'date_visit': random_date,
-                'page': 'B'
-            })
+        for i in ['A', 'B']:
+            for _ in range(num_visitors):
+                random_date = random_datetime(start_date, datetime.now())
+                db.visitors.insert_one({
+                    'date_visit': random_date,
+                    'page': i
+                })
 
         return jsonify({'success': f'{num_visitors} random visitors data saved successfully'}), 200
     except Exception as e:
