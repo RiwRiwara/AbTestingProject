@@ -44,42 +44,71 @@ def random_datetime(start_date, end_date):
     random_days = random.randint(0, delta.days)
     return start_date + timedelta(days=random_days)
 
-@apiAPI.route('/generate-random-click-action', methods=['POST'])
+@apiAPI.route('/generate-random-click-action', methods=['GET'])
 def generate_random_click_action():
-    data = request.json
-    num_actions = data.get('num_actions', 1)  # Default to generating 1 action if num_actions not provided
-
-    buttons = ['register', 'best-seller', 'save']
-    pages = ['A', 'B']
-    start_date = datetime.now() - timedelta(days=60)  # Two months ago
-
+    mockup_data = {
+        'A' : {
+            'save' : 50,
+            'register' : 88,
+            'login' : 92,
+            'viewmore': 90
+        },
+        'B' : {
+            'save' : 86,
+            'register' : 50,
+            'login' : 124,
+            'viewmore': 120
+        }
+    }
+    
+    start_date = datetime.now() - timedelta(days=30)  
     user_id = session.get('user_id') or 'anonymous'
 
     try:
-        for _ in range(num_actions):
-            # Generate random click action
-            random_button = random.choice(buttons)
-            random_page = random.choice(pages)
-            random_date = random_datetime(start_date, datetime.now())
+        
+        for i in mockup_data:
+            for j in mockup_data[i]:
+                print(i, j, mockup_data[i][j])
 
-            db.click_actions.insert_one({
-                'date_click': random_date,
-                'user_id': user_id,
-                'button': random_button,
-                'page': random_page
-            })
+                for _ in range(mockup_data[i][j]):
+                    random_date = random_datetime(start_date, datetime.now())
+                    db.click_actions.insert_one({
+                        'date_click': random_date,
+                        'user_id': user_id,
+                        'button': j,
+                        'page': i
+                    })
 
-            # Generate random visitor data
-            random_page = random.choice(pages)
-            random_date = random_datetime(start_date, datetime.now())
 
-        for _ in range(num_actions+100):
-            db.visitors.insert_one({
-                'date_visit': random_date,
-                'user_id': user_id,
-                'page': random_page
-            })
 
-        return jsonify({'success': f'{num_actions} random click actions and visitor data saved successfully'}), 200
+        return jsonify({'success': f'{787878} random click actions and visitor data saved successfully'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@apiAPI.route('/generate-random-visitor', methods=['GET'])
+def generate_random_visitor():
+    num_visitors = 1000 
+    start_date = datetime.now() - timedelta(days=30)  
+
+    try:
+        for _ in range(num_visitors):
+            random_date = random_datetime(start_date, datetime.now())
+            db.visitors.insert_one({
+                'date_visit': random_date,
+                'page': 'B'
+            })
+
+        return jsonify({'success': f'{num_visitors} random visitors data saved successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+@apiAPI.route('/dell', methods=['GET'])
+def delete_all():
+    db.click_actions.delete_many({})
+    db.visitors.delete_many({})
+    return {
+        'status': 'deleted'
+    }
+
+
+    

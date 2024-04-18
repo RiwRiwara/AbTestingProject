@@ -31,7 +31,7 @@ def calculate_frequentist(visitors_A, visitors_B, conversion_A, conversion_B, al
 def dashboard():
     if is_logged_in() and session['admin']:
         page = request.args.get('page') or 'all'
-        button = request.args.get('button') or 'buy'
+        button = request.args.get('button') or 'save'
         time_frame = request.args.get('time_frame') or 'seven'
 
         visitors_count_A = db.visitors.count_documents({'page': 'A'})

@@ -243,5 +243,3 @@ def calculate_frequentist(visitors_A, visitors_B, conversion_A, conversion_B, al
 
     return  test
 
-
-    
