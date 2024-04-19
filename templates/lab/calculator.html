@@ -6,108 +6,114 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
 <section class="px-4 py-2 row" style="margin-top: 3rem;">
 
-    <form class="col-3 container d-flex flex-column gap-4">
-        <h2 class="fw-bold">Test data</h2>
-
-
-
-
-        <select class="form-select" style="width: 100%;" name="button" onchange="this.form.submit()">
-            <option value="save" {% if request.args.get('button')=='save' %} selected {% endif %}>Buy</option>
-            <option value="register" {% if request.args.get('button')=='register' %} selected {% endif %}>
-                Register</option>
-            <option value="login" {% if request.args.get('button')=='login' %} selected {% endif %}>Login
-            </option>
-            <option value="viewmore" {% if request.args.get('button')=='viewmore' %} selected {% endif %}>View
-                more</option>
-            <option value="all" {% if request.args.get('button')=='all' %} selected {% endif %}>All</option>
-        </select>
-
-
-        <div class="d-flex flex-row gap-1">
-            <div class="form-outline" data-mdb-input-init>
-                <input type="number"
-                    value="{% if request.args.get('visitors_a') is not none %}{{ request.args.get('visitors_a') }}{% else %}50000{% endif %}"
-                    id="visitors_a" name="visitors_a" class="form-control form-control-lg" />
-                <label class="form-label" for="visitors_a">Visitors A</label>
-            </div>
-            <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
-                onclick="increaseValue('visitors_a')">+</a>
-            <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
-                onclick="decreaseValue('visitors_a')">-</a>
-        </div>
-
-        <div class="d-flex flex-row gap-1">
-            <div class="form-outline" data-mdb-input-init>
-                <input type="number"
-                    value="{% if request.args.get('conversions_a') is not none %}{{ request.args.get('conversions_a') }}{% else %}1500{% endif %}"
-                    id="conversions_a" name="conversions_a" class="form-control form-control-lg" />
-
-                <label class="form-label" for="conversions_a">Conversion A</label>
-            </div>
-            <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
-                onclick="increaseValue('conversions_a')">+</a>
-            <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
-                onclick="decreaseValue('conversions_a')">-</a>
-        </div>
-
-        <div class="d-flex flex-row gap-1">
-            <div class="form-outline" data-mdb-input-init>
-                <input type="number"
-                    value="{% if request.args.get('visitors_b') is not none %}{{ request.args.get('visitors_b') }}{% else %}50000{% endif %}"
-                    id="visitors_b" name="visitors_b" class="form-control form-control-lg" />
-                <label class="form-label" for="visitors_b">Visitors B</label>
-            </div>
-            <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
-                onclick="increaseValue('visitors_b')">+</a>
-            <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
-                onclick="decreaseValue('visitors_b')">-</a>
-        </div>
-
-        <div class="d-flex flex-row gap-1">
-            <div class="form-outline" data-mdb-input-init>
-                <input type="number"
-                    value="{% if request.args.get('conversions_b') is not none %}{{ request.args.get('conversions_b') }}{% else %}1560{% endif %}"
-                    id="conversions_b" name="conversions_b" class="form-control form-control-lg" />
-                <label class="form-label" for="conversions_b">Conversion B</label>
-            </div>
-            <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
-                onclick="increaseValue('conversions_b')">+</a>
-            <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
-                onclick="decreaseValue('conversions_b')">-</a>
-        </div>
-        <div>
-            <label for="significance_level" class="form-label">Significance level</label>
-            <select class="form-select" name="significance_level" id="significance_level">
-                <option value="0.05" {% if request.args.get('significance_level')=='0.05' %} selected {% endif %}>95%
+    <div class="col-3 container d-flex flex-column gap-3">
+        <form>
+            <select class="form-select" style="width: 100%;" name="button" onchange="this.form.submit()">
+                <option value="save" {% if request.args.get('button')=='save' %} selected {% endif %}>Buy</option>
+                <option value="register" {% if request.args.get('button')=='register' %} selected {% endif %}>
+                    Register</option>
+                <option value="login" {% if request.args.get('button')=='login' %} selected {% endif %}>Login
                 </option>
-                <option value="0.10" {% if request.args.get('significance_level')=='0.10' %} selected {% endif %}>90%
-                </option>
-                <option value="0.01" {% if request.args.get('significance_level')=='0.01' %} selected {% endif %}>99%
-                </option>
+                <option value="viewmore" {% if request.args.get('button')=='viewmore' %} selected {% endif %}>View
+                    more</option>
+                <option value="all" {% if request.args.get('button')=='all' %} selected {% endif %}>All</option>
             </select>
-        </div>
-        <div>
-            <label for="method" class="form-label">One vs. two tail</label>
-            <select class="form-select" name="method" id="method">
-                <option value="two" {% if request.args.get('method')=='two' %} selected {% endif %}>Two tail
-                </option>
-                <option value="one" {% if request.args.get('method')=='one' %} selected {% endif %}>One tail
-                </option>
-            </select>
-        </div>
+        </form>
+        <form class=" d-flex flex-column gap-3">
 
-        <div>
-            <button type="submit" class="btn w-100" style="background-color: #5EC57E;">Calculate</button>
-        </div>
-        <div>
-            <button type="button" class="btn btn-primary w-100"
-            hidden
-            id="filldata"
-                onclick="fillData('{{data.visitors_count.A}}', '{{data.visitors_click.A_save}}', '{{data.visitors_count.B}}', '{{data.visitors_click.B_save}}')">Fill
-                data</button>
-        </div>
-    </form>
+
+
+            <div class="d-flex flex-row gap-1">
+                <div class="form-outline" data-mdb-input-init>
+                    <input type="number"
+                        value="{% if request.args.get('visitors_a') is not none %}{{ request.args.get('visitors_a') }}{% else %}50000{% endif %}"
+                        id="visitors_a" name="visitors_a" class="form-control form-control-lg" />
+                    <label class="form-label" for="visitors_a">Visitors A</label>
+                </div>
+                <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
+                    onclick="increaseValue('visitors_a')">+</a>
+                <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
+                    onclick="decreaseValue('visitors_a')">-</a>
+            </div>
+
+            <div class="d-flex flex-row gap-1">
+                <div class="form-outline" data-mdb-input-init>
+                    <input type="number"
+                        value="{% if request.args.get('conversions_a') is not none %}{{ request.args.get('conversions_a') }}{% else %}1500{% endif %}"
+                        id="conversions_a" name="conversions_a" class="form-control form-control-lg" />
+
+                    <label class="form-label" for="conversions_a">Conversion A</label>
+                </div>
+                <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
+                    onclick="increaseValue('conversions_a')">+</a>
+                <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
+                    onclick="decreaseValue('conversions_a')">-</a>
+            </div>
+
+            <div class="d-flex flex-row gap-1">
+                <div class="form-outline" data-mdb-input-init>
+                    <input type="number"
+                        value="{% if request.args.get('visitors_b') is not none %}{{ request.args.get('visitors_b') }}{% else %}50000{% endif %}"
+                        id="visitors_b" name="visitors_b" class="form-control form-control-lg" />
+                    <label class="form-label" for="visitors_b">Visitors B</label>
+                </div>
+                <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
+                    onclick="increaseValue('visitors_b')">+</a>
+                <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
+                    onclick="decreaseValue('visitors_b')">-</a>
+            </div>
+
+            <div class="d-flex flex-row gap-1">
+                <div class="form-outline" data-mdb-input-init>
+                    <input type="number"
+                        value="{% if request.args.get('conversions_b') is not none %}{{ request.args.get('conversions_b') }}{% else %}1560{% endif %}"
+                        id="conversions_b" name="conversions_b" class="form-control form-control-lg" />
+                    <label class="form-label" for="conversions_b">Conversion B</label>
+                </div>
+                <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
+                    onclick="increaseValue('conversions_b')">+</a>
+                <a class="btn btn-secondary d-flex align-items-center py-1 px-3 fw-bold"
+                    onclick="decreaseValue('conversions_b')">-</a>
+            </div>
+            <div>
+                <label for="significance_level" class="form-label">Significance level</label>
+                <select class="form-select" name="significance_level" id="significance_level">
+                    <option value="0.05" {% if request.args.get('significance_level')=='0.05' %} selected {% endif %}>
+                        95%
+                    </option>
+                    <option value="0.10" {% if request.args.get('significance_level')=='0.10' %} selected {% endif %}>
+                        90%
+                    </option>
+                    <option value="0.01" {% if request.args.get('significance_level')=='0.01' %} selected {% endif %}>
+                        99%
+                    </option>
+                </select>
+            </div>
+            <div>
+                <label for="method" class="form-label">One vs. two tail</label>
+                <select class="form-select" name="method" id="method">
+                    <option value="two" {% if request.args.get('method')=='two' %} selected {% endif %}>Two tail
+                    </option>
+                    <option value="one" {% if request.args.get('method')=='one' %} selected {% endif %}>One tail
+                    </option>
+                </select>
+            </div>
+
+            <div>
+                <button type="submit" id="calbtn" class="btn w-100"
+                    style="background-color: #5EC57E;color: white;">Calculate</button>
+            </div>
+            <div>
+                <a href="/lab/calculator" class="btn w-100" style="background-color: #5F5F5F;color: white;">Clear
+                    all</a>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary w-100" hidden id="filldata"
+                    onclick="fillData('{{data.visitors_count.A}}', '{{data.visitors_click.A_save}}', '{{data.visitors_count.B}}', '{{data.visitors_click.B_save}}')">Fill
+                    data</button>
+            </div>
+        </form>
+    </div>
 
     <div class="col-9">
         <h2 class="fw-bold">เครื่องคิดเลขทดสอบ A/B Testing</h2>
@@ -119,7 +125,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         <div class="my-4 d-flex flex-row gap-2 align-content-center align-items-center">
             <img src="{{ url_for('static', filename='img/issig.png') }}" alt="reach" class=""
                 style="width: 50px;height:50px">
-            <h3 class="fw-bold " id="result_val">การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!</h3>
+            <h3 class="fw-bold " id="result_val" style="color: #5EC57E;">การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!</h3>
         </div>
 
 
@@ -130,41 +136,31 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
             {% if isAmB %}
             ตัวแปร <span class="h5 fw-bold ">A</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span class="h5 fw-bold ">B
                 อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
-                <br>
+            <br>
             ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">A</span>
             จะเพิ่มประสิทธิภาพให้เว็บของคุณ
             {% else %}
             ตัวแปร <span class="h5 fw-bold ">B</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span class="h5 fw-bold ">A
                 อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
-                <br>
+            <br>
             ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">B</span>
             จะเพิ่มประสิทธิภาพให้เว็บของคุณ
             {% endif %}
             {% else %}
-            การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
+            <span style="color: #E4A11C;">
+                การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
+            </span>
             {% endif %}
         </p>
 
 
-
-
-        <p>You can be {{100-(test.alpha * 200)}}% confident that the result is true and due to the changes made. There
-            is a 5% chance that
-            the
-            result is a false positive or type I error meaning the result is due to random chance.
-        </p>
-
-        <p>
-            Either collect more data to achieve greater precision in your test, or conclude the test as
-            inconclusive.
-        </p>
 
         {% else %}
 
         <div class="my-4 d-flex flex-row gap-2 align-content-center align-items-center">
             <img src="{{ url_for('static', filename='img/nosig.png') }}" alt="reach" class=""
                 style="width: 50px;height:50px">
-            <h3 class="fw-bold " id="result_val">การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
+            <h3 class="fw-bold " id="result_val" style="color: #E4A11C;">การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
         </div>
 
 
@@ -199,9 +195,11 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 <tbody>
                     <tr>
                         <th scope="row">A</th>
-                        <th scope="row">{{test.visitors_A}}</th>
-                        <th scope="row">{{test.conversions_A}}</th>
-                        <th scope="row">{{ (test.conversions_A / test.visitors_A * 100) | round(2) }} %</th>
+                        <th scope="row" class="resultcal">{{test.visitors_A if test.visitors_A != 999999 else "" }}</th>
+                        <th scope="row" class="resultcal">{{test.conversions_A if test.visitors_A != 999999 else ""}}
+                        </th>
+                        <th scope="row" class="resultcal" class="resultcal">{{ (test.conversions_A / test.visitors_A *
+                            100) | round(2) if test.visitors_A != 999999 else ""}} %</th>
 
                         <th scope="row">-</th>
                         <th scope="row">-</th>
@@ -209,20 +207,22 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
                     <tr>
                         <th scope="row">B</th>
-                        <th scope="row">{{test.visitors_B}}</th>
-                        <th scope="row">{{test.conversions_B}}</th>
-                        <th scope="row">{{ (test.conversions_B / test.visitors_B * 100) | round(2) }} %</th>
+                        <th scope="row" class="resultcal">{{test.visitors_B if test.visitors_A != 999999 else ""}}</th>
+                        <th scope="row" class="resultcal">{{test.conversions_B if test.visitors_A != 999999 else ""}}
+                        </th>
+                        <th scope="row" class="resultcal">{{ (test.conversions_B / test.visitors_B * 100) | round(2) if
+                            test.visitors_A != 999999 else ""}} %</th>
 
                         <!--
                         <th scope="row">
                             {{power | round(4) * 100}} %
                         </th>
                     -->
-                        <th scope="row">
-                            {{z_score | round(4) }}
+                        <th scope="row" class="resultcal">
+                            {{z_score | round(4) if test.visitors_A != 999999 else ""}}
                         </th>
-                        <th scope="row">
-                            {{p_value | round(4)}}
+                        <th scope="row" class="resultcal">
+                            {{p_value | round(4) if test.visitors_A != 999999 else ""}}
                         </th>
 
                     </tr>
@@ -381,7 +381,8 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
     //onload fill data
     window.onload = function () {
-       document.getElementById('filldata').click();
+        document.getElementById('filldata').click();
+
     }
 </script>
 

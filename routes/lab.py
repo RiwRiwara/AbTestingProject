@@ -104,12 +104,13 @@ def reach():
 @labAPI.route('/calculator')
 def calculator():
     if is_logged_in() and session['admin']:
+
         # get args from url
         button = (request.args.get('button') or "save")
-        visitors_A = int(request.args.get('visitors_a') or 50000)
-        visitors_B = int(request.args.get('visitors_b') or 50000)
-        conversion_A = int(request.args.get('conversions_a') or 1500)
-        conversion_B = int(request.args.get('conversions_b') or 1560)
+        visitors_A = int(request.args.get('visitors_a') or 999999)
+        visitors_B = int(request.args.get('visitors_b') or 999999)
+        conversion_A = int(request.args.get('conversions_a') or 99999)
+        conversion_B = int(request.args.get('conversions_b') or 99999)
         
         conversion_rate_A = conversion_A / visitors_A * 100
         conversion_rate_B = conversion_B / visitors_B * 100
