@@ -131,14 +131,12 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
             ตัวแปร <span class="h5 fw-bold ">A</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span class="h5 fw-bold ">B
                 อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
                 <br>
-
             ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">A</span>
             จะเพิ่มประสิทธิภาพให้เว็บของคุณ
             {% else %}
             ตัวแปร <span class="h5 fw-bold ">B</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span class="h5 fw-bold ">A
                 อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
                 <br>
-
             ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">B</span>
             จะเพิ่มประสิทธิภาพให้เว็บของคุณ
             {% endif %}
@@ -191,7 +189,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                     <tr>
                         <th scope="col"></th>
                         <th scope="col">Visitors</th>
-                        <th scope="col">Convertions</th>
+                        <th scope="col">Conversions</th>
                         <th scope="col">Conversion rate</th>
                         <!-- <th scope="col">Power</th> -->
                         <th scope="col">Z-score</th>
@@ -239,7 +237,8 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         <pre class="mt-5">
 <span class="fw-bold">A/B testing ย่อมาจากอะไร</span>
     ในการทดสอบ A/B คุณกำลังทดสอบสองตัวแปรเพื่อเปรียบเทียบกัน – ตัวแปร A และตัวแปร B ตัวแปร A เป็นตัวแปรต้น (หรือที่เรียกว่าตัวควบคุม) และ B เป็นการทำซ้ำของตัวแปร A
-แต่มีการปรับเปลี่ยนเพียงเล็กน้อย นอกจากนี้คุณยังสามารถเพิ่มตัวแปรเพิ่มเติม (C, D, E … ฯลฯ ) แต่เพื่อให้ได้ผลลัพธ์ที่มีนัยสำคัญทางสถิติเราขอแนะนำให้ทดสอบ A เทียบกับ B
+แต่มีการปรับเปลี่ยนเพียงเล็กน้อย นอกจากนี้คุณยังสามารถเพิ่มตัวแปรเพิ่มเติม (C, D, E … ฯลฯ ) แต่เพื่อให้ได้ผลลัพธ์ที่มีนัยสำคัญทางสถิติ
+<br>เราขอแนะนำให้ทดสอบ A เทียบกับ B
 </pre>
         <hr />
 
