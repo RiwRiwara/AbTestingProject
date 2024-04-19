@@ -159,19 +159,19 @@ def dashboard():
                 'test' : test,
             },
             'visitors_count': {
-                'A': visitors_count_A,
-                'B': visitors_count_B,
-                'data': [visitors_count_A, visitors_count_B],
+                'A': visitors_count_A if page == 'all' or page == 'A' else 0,
+                'B': visitors_count_B if page == 'all' or page == 'B' else 0,
+                'data': [visitors_count_A if page == 'all' or page == 'A' else 0, visitors_count_B if page == 'all' or page == 'B' else 0],
             },
             'bar_chart': {
                 'labels': bar_chart_labels,
-                'dataA': bar_chart_data_A,
-                'dataB': bar_chart_data_B
+                'dataA': bar_chart_data_A if page == 'all' or page == 'A' else [],
+                'dataB': bar_chart_data_B if page == 'all' or page == 'B' else [],
             },
             'line_chart': {
                 'labels': line_label,
-                'dataA': line_chart_data_A,
-                'dataB': line_chart_data_B
+                'dataA': line_chart_data_A if page == 'all' or page == 'A' else [],
+                'dataB': line_chart_data_B if page == 'all' or page == 'B' else []
             }
         }
         
