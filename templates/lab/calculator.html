@@ -9,6 +9,21 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
     <form class="col-3 container d-flex flex-column gap-4">
         <h2 class="fw-bold">Test data</h2>
 
+
+
+
+        <select class="form-select" style="width: 100%;" name="button" onchange="this.form.submit()">
+            <option value="save" {% if request.args.get('button')=='save' %} selected {% endif %}>Buy</option>
+            <option value="register" {% if request.args.get('button')=='register' %} selected {% endif %}>
+                Register</option>
+            <option value="login" {% if request.args.get('button')=='login' %} selected {% endif %}>Login
+            </option>
+            <option value="viewmore" {% if request.args.get('button')=='viewmore' %} selected {% endif %}>View
+                more</option>
+            <option value="all" {% if request.args.get('button')=='all' %} selected {% endif %}>All</option>
+        </select>
+
+
         <div class="d-flex flex-row gap-1">
             <div class="form-outline" data-mdb-input-init>
                 <input type="number"
@@ -83,7 +98,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         </div>
 
         <div>
-            <button type="submit" class="btn btn-primary w-100">Calculate</button>
+            <button type="submit" class="btn w-100" style="background-color: #5EC57E;">Calculate</button>
         </div>
         <div>
             <button type="button" class="btn btn-primary w-100"
@@ -215,31 +230,31 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         <canvas id="mainChart"></canvas>
 
 
-<pre class="mt-5">
+        <pre class="mt-5">
 <span class="fw-bold">A/B testing ย่อมาจากอะไร</span>
     ในการทดสอบ A/B คุณกำลังทดสอบสองตัวแปรเพื่อเปรียบเทียบกัน – ตัวแปร A และตัวแปร B ตัวแปร A เป็นตัวแปรต้น (หรือที่เรียกว่าตัวควบคุม) และ B เป็นการทำซ้ำของตัวแปร A
 แต่มีการปรับเปลี่ยนเพียงเล็กน้อย นอกจากนี้คุณยังสามารถเพิ่มตัวแปรเพิ่มเติม (C, D, E … ฯลฯ ) แต่เพื่อให้ได้ผลลัพธ์ที่มีนัยสำคัญทางสถิติเราขอแนะนำให้ทดสอบ A เทียบกับ B
 </pre>
-<hr />
+        <hr />
 
-<pre>
+        <pre>
 <span class="fw-bold">คุณจะทำการทดสอบ A/B ได้อย่างไร</span>
     ในการเรียกใช้การทดสอบ A/B คุณจะต้องมีหน้าต้นฉบับหรือหน้าควบคุม (ตัวแปร A) เมื่อคุณสร้างหน้าควบคุมของตัวแปร A เสร็จแล้วคุณจะต้องทำซ้ำ จากนั้นแก้ไของค์ประกอบเล็ก ๆ น้อย ๆ
 บนหน้าเพื่อสร้างตัวแปร B ซึ่งอาจเป็นข้อความส่วนเล็ก ๆ หัวข้อ ปุ่มคำกระตุ้นการตัดสินใจ หรือแม้แต่ สีหรือรูปแบบของแบบอักษรที่ใช้ 
 คุณจะต้องแสดงรูปแบบทั้งสองนี้ต่อจำนวนผู้ชมที่ใกล้เคียงกันเป็นระยะเวลาไม่น้อยกว่าหนึ่งสัปดาห์ 
 จากข้อมูลที่รวบรวมในระหว่างสัปดาห์คุณจะสามารถระบุได้ว่าตัวแปรใดที่มีอัตราการเกิดกิจกรรมสูงสุดและจะเรียกว่าตัวแปรผลลัพธ์
 </pre>
-<hr />
+        <hr />
 
-<pre>
+        <pre>
 <span class="fw-bold">คุณควรทำการทดสอบ A/B นานแค่ไหน</span>
     คุณต้องทำการทดสอบ A/B ให้นานที่สุดเพื่อให้ได้ผลลัพธ์ที่มีนัยสำคัญทางสถิติ จำนวนผู้ใช้งานเว็บไซต์เป็นกุญแจสำคัญ หากหน้าเว็บไซต์มีผู้เข้าชม 1 ล้านคนต่อวัน การทดสอบ A/B 
 อาจแสดงผลลัพธ์ที่ชัดเจนได้ในไม่กี่ชั่วโมง หน้าเว็บไซต์ที่มีผู้เยี่ยมชม 2 คนต่อวันอาจใช้เวลาหนึ่งปีเพื่อแสดงผลลัพธ์ที่มีนัยสำคัญทางสถิติ พฤติกรรมของผู้ใช้มักจะแตกต่างกันไปตลอดทั้งสัปดาห์ 
 ดังนั้นเราขอแนะนำให้ทำการทดสอบ A/B เป็นเวลาอย่างน้อยหนึ่งสัปดาห์เต็ม
 </pre>
-<hr />
+        <hr />
 
-<pre>
+        <pre>
 <span class="fw-bold">นัยสำคัญทางสถิติคืออะไร</span>
     นัยสำคัญทางสถิติคือความเป็นไปได้ที่สาเหตุที่ทำให้ตัวแปรหนึ่งแข็งแกร่งกว่าอีกตัวหนึ่งนั้นเกิดจากสิ่งอื่นที่ไม่ใช่ความบังเอิญ 
 หมายความว่าคุณสามารถสรุปได้อย่างน่าเชื่อถือว่าตัวแปรผลลัพธ์นั้นน่าเชื่อถือกว่า เนื่องจากการเปลี่ยนแปลงที่คุณทำ 
@@ -313,11 +328,11 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 label: 'Conversion Rate ',
                 data: JSON.parse('{{data.bar_chart.dataA | tojson | safe}}'),
                 borderWidth: 1,
-                backgroundColor :['#89CFF0', '#F8C8DC'],
+                backgroundColor: ['#89CFF0', '#F8C8DC'],
             },
         ]
     };
-    
+
     const barChartConfig = {
         options: {
             scales: {
@@ -328,7 +343,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
             plugins: {
                 tooltip: {
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             var label = context.dataset.label || '';
                             if (label) {
                                 label += ': ';
@@ -344,7 +359,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 datalabels: {
                     anchor: 'end',
                     align: 'top',
-                    formatter: function(value, context) {
+                    formatter: function (value, context) {
                         return value.toFixed(2) + '%'; // Format to two decimal places
                     },
                     color: 'red' // Custom text color for data labels
@@ -355,7 +370,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
             }
         }
     };
-    
+
 
     createChart('bar', 'mainChart', { data: barChartData, options: barChartConfig.options });
 

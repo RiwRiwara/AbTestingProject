@@ -105,6 +105,7 @@ def reach():
 def calculator():
     if is_logged_in() and session['admin']:
         # get args from url
+        button = (request.args.get('button') or "save")
         visitors_A = int(request.args.get('visitors_a') or 50000)
         visitors_B = int(request.args.get('visitors_b') or 50000)
         conversion_A = int(request.args.get('conversions_a') or 1500)
@@ -119,8 +120,9 @@ def calculator():
 
         visitors_click_A = db.click_actions.count_documents({'page': 'A'})
         visitors_click_B = db.click_actions.count_documents({'page': 'B'})
-        visitors_click_A_save = db.click_actions.count_documents({'page': 'A', 'button': 'save'})
-        visitors_click_B_save = db.click_actions.count_documents({'page': 'B', 'button': 'save'})
+        
+        visitors_click_A_save = db.click_actions.count_documents({'page': 'A', 'button': button})
+        visitors_click_B_save = db.click_actions.count_documents({'page': 'B', 'button': button})
         
                 
 
