@@ -178,7 +178,10 @@ def calculator():
         print(uplift_a, uplift_b, isSignificant)
 
         xper = 0
-        xper = ((conversion_rate_A - conversion_rate_B) / conversion_rate_A) * 100
+        if isAmB :
+            xper = ((conversion_rate_A - conversion_rate_B) / conversion_rate_A) * 100
+        else:
+            xper = ((conversion_rate_B - conversion_rate_A) / conversion_rate_B) * 100
 
             
         xper = abs(xper)
