@@ -192,9 +192,9 @@ def dashboard():
             xper =( (float(data['convertion_rate_B']) - float(data['convertion_rate_A'])) / float(data['convertion_rate_B'])) * 100
         
         if data['amoreb']:
-            xper = (float(data['convertion_rate_A']) - float(data['convertion_rate_B'])) / (float(data['convertion_rate_A'])) * 100
-        else:
             xper = (float(data['convertion_rate_B']) - float(data['convertion_rate_A'])) / (float(data['convertion_rate_B'])) * 100
+        else:
+            xper = (float(data['convertion_rate_A']) - float(data['convertion_rate_B'])) / (float(data['convertion_rate_A'])) * 100
 
         xper = abs(xper)
 

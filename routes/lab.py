@@ -179,9 +179,9 @@ def calculator():
 
         xper = 0
         if isAmB :
-            xper = ((conversion_rate_A - conversion_rate_B) / conversion_rate_A) * 100
-        else:
             xper = ((conversion_rate_B - conversion_rate_A) / conversion_rate_B) * 100
+        else:
+            xper = ((conversion_rate_A - conversion_rate_B) / conversion_rate_A) * 100
 
             
         xper = abs(xper)
