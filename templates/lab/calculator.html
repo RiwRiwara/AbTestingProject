@@ -102,6 +102,8 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         </div>
         <div>
             <button type="button" class="btn btn-primary w-100"
+            hidden
+            id="filldata"
                 onclick="fillData('{{data.visitors_count.A}}', '{{data.visitors_click.A_save}}', '{{data.visitors_count.B}}', '{{data.visitors_click.B_save}}')">Fill
                 data</button>
         </div>
@@ -374,6 +376,10 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
     createChart('bar', 'mainChart', { data: barChartData, options: barChartConfig.options });
 
+    //onload fill data
+    window.onload = function () {
+       document.getElementById('filldata').click();
+    }
 </script>
 
 {% endblock %}
