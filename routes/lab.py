@@ -124,6 +124,10 @@ def calculator():
         visitors_click_A_save = db.click_actions.count_documents({'page': 'A', 'button': button})
         visitors_click_B_save = db.click_actions.count_documents({'page': 'B', 'button': button})
         
+        if (button == "all"):
+            visitors_click_A_save = db.click_actions.count_documents({'page': 'A'})
+            visitors_click_B_save = db.click_actions.count_documents({'page': 'B'})
+        
                 
 
 

@@ -191,7 +191,9 @@ def dashboard():
         else:
             xper =( (float(data['convertion_rate_B']) - float(data['convertion_rate_A'])) / float(data['convertion_rate_B'])) * 100
         
+        xper = (float(data['convertion_rate_A']) - float(data['convertion_rate_B'])) / (float(data['convertion_rate_A'])) * 100
 
+        xper = abs(xper)
 
         #base64_image = save_plotly_graph_as_base64(visitors_click_A)
 
