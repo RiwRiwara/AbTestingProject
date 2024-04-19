@@ -129,30 +129,30 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         </div>
 
 
-
+        {% if test.visitors_A != 999999 %}
+       
         <p>
             {% if isSignificant %}
             การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!
             {% if isAmB %}
-            ตัวแปร <span class="h5 fw-bold ">A</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span class="h5 fw-bold ">B
+            <span class="h5 fw-bold " style="color: #5EC57E;">ตัวแปร A</span> เกิดอัตราการคลิกที่มากกว่า <span class="h5 fw-bold " style="color: #5EC57E;">ตัวแปร <span class="h5 fw-bold ">B
                 อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
             <br>
-            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">A</span>
+            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น <span style="color: #5EC57E;">ตัวแปร A</span>
             จะเพิ่มประสิทธิภาพให้เว็บของคุณ
             {% else %}
-            ตัวแปร <span class="h5 fw-bold ">B</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span class="h5 fw-bold ">A
+             <span class="fw-bold" style="color: #5EC57E;">ตัวแปร B</span> เกิดอัตราการคลิกที่มากกว่า <span class="fw-bold" style="color: #5EC57E;">ตัวแปร A
                 อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
             <br>
-            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">B</span>
+            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น <span class="fw-bold" style="color: #5EC57E;">ตัวแปร B</span>
             จะเพิ่มประสิทธิภาพให้เว็บของคุณ
             {% endif %}
             {% else %}
-            <span style="color: #E4A11C;">
+            <span class="fw-bold" style="color: #E4A11C;">
                 การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
             </span>
             {% endif %}
         </p>
-
 
 
         {% else %}
@@ -165,17 +165,18 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
 
         {% if isAmB %}
-        <p class="fw-bold">There is not enough evidence to prove that there is a {{uplift_a}}% difference in the
-            conversion rates between variants A and B.</p>
-        <p>แนะนำให้ทำการทดสอบอีกครั้ง</p>
+        <p class="fw-bold">แนะนำให้ทำการทดสอบอีกครั้ง เนื่องจากไม่มีหลักฐานมากพอที่จะ สูจน์ความต่างอย่างมีนัยสำคัญ
+            ระหว่าง <span class="fw-bold" style="color: #E4A11C;">ตัวแปร A</span> และ <span class="fw-bold" style="color: #E4A11C;">ตัวแปร B.</span></p>
+
         {% else %}
-        <p class="fw-bold">There is not enough evidence to prove that there is a {{uplift_b}}% difference in the
-            conversion rates between variants A and B.</p>
-        <p>แนะนำให้ทำการทดสอบอีกครั้ง</p>
+        <p class="fw-bold">แนะนำให้ทำการทดสอบอีกครั้ง เนื่องจากไม่มีหลักฐานมากพอที่จะ สูจน์ความต่างอย่างมีนัยสำคัญ
+            ระหว่าง <span class="fw-bold" style="color: #E4A11C;">ตัวแปร A</span> และ <span class="fw-bold" style="color: #E4A11C;">ตัวแปร B.</span></p>
 
         {% endif %}
 
         {% endif %}
+        {% endif %}
+
 
 
 
@@ -231,8 +232,11 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
             </table>
         </div>
 
+        {% if test.visitors_A != 999999 %}
+
         <canvas id="mainChart"></canvas>
 
+        {% endif %}
 
         <pre class="mt-5">
 <span class="fw-bold">A/B testing ย่อมาจากอะไร</span>

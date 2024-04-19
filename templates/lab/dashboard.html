@@ -180,6 +180,8 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         </div>
         <div class="d-flex justify-content-center flex-column">
             <form class="input-group gap-2" method="get" action="{{ url_for('labAPI.dashboard') }}">
+                <input type="hidden" name="page" value="{{ request.args.get('page') }}">
+                <input type="hidden" name="button" value="{{ request.args.get('button') }}">
 
                 <select class="form-select" name="time_frame" onchange="this.form.submit()">
                     <option value="seven" {% if request.args.get('time_frame')=='seven' %} selected {% endif %}>7 วัน
