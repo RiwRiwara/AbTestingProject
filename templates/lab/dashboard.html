@@ -71,19 +71,24 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
                 </thead>
                 <tbody>
                     <tr>
-                        <th {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %} scope="row">A</th>
-                        <td {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{ data.visitors_count.A
+                        <th {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %} scope="row">A
+                        </th>
+                        <td {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{
+                            data.visitors_count.A
                             }}</td>
-                        <td {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{ data.visitors_click_A
+                        <td {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{
+                            data.visitors_click_A
                             }}</td>
                         <td {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}><i
                                 class="fas fa-arrow-right-long"></i></td>
-                        <td {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{ data.convertion_rate_A
+                        <td {% if data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{
+                            data.convertion_rate_A
                             }}%</td>
                     </tr>
 
                     <tr>
-                        <th {% if not data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %} scope="row">B</th>
+                        <th {% if not data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}
+                            scope="row">B</th>
                         <td {% if not data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{
                             data.visitors_count.B }}</td>
                         <td {% if not data.amoreb %}style="background-color: {{data.bg_color}};" {% endif %}>{{
@@ -123,30 +128,34 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 
                         <p>
                             {% if isSignificant %}
-                            <p class="h4 fw-bold" style="color: #5EC57E;">
-                                การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!
-                            </p>
-                            {% if amoreb %}
-                            ตัวแปร <span class="h5 fw-bold ">A</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span class="h5 fw-bold ">B
-                                อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
-                            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">A</span>
-                            จะเพิ่มประสิทธิภาพให้เว็บของคุณ
-                            {% else %}
-                            ตัวแปร <span class="h5 fw-bold ">B</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span class="h5 fw-bold ">A
-                                อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
-                            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">B</span>
-                            จะเพิ่มประสิทธิภาพให้เว็บของคุณ
-                            {% endif %}
-                            {% else %}
+                        <p class="h4 fw-bold" style="color: #5EC57E;">
+                            การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!
+                        </p>
+                        {% if amoreb %}
+                        ตัวแปร <span class="h5 fw-bold ">A</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span
+                            class="h5 fw-bold ">B
+                            อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
+                        <br>
+                        ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">A</span>
+                        จะเพิ่มประสิทธิภาพให้เว็บของคุณ
+                        {% else %}
+                        ตัวแปร <span class="h5 fw-bold ">B</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span
+                            class="h5 fw-bold ">A
+                            อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
+                        <br>
+                        ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">B</span>
+                        จะเพิ่มประสิทธิภาพให้เว็บของคุณ
+                        {% endif %}
+                        {% else %}
 
-                            <p class="h4 fw-bold" style="color: #E4A11C;">
-                                การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
-                            </p>
-                            <p>แนะนำให้ทำการทดสอบอีกครั้ง</p>
-                            {% endif %}
+                        <p class="h4 fw-bold" style="color: #E4A11C;">
+                            การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
+                        </p>
+                        <p>แนะนำให้ทำการทดสอบอีกครั้ง</p>
+                        {% endif %}
                         </p>
 
-                        
+
 
 
 

@@ -130,11 +130,15 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
             {% if isAmB %}
             ตัวแปร <span class="h5 fw-bold ">A</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span class="h5 fw-bold ">B
                 อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
+                <br>
+
             ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">A</span>
             จะเพิ่มประสิทธิภาพให้เว็บของคุณ
             {% else %}
             ตัวแปร <span class="h5 fw-bold ">B</span> เกิดอัตราการคลิกที่มากกว่า ตัวแปร <span class="h5 fw-bold ">A
                 อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
+                <br>
+
             ฉันมั่นใจว่าการปรับรูปแบบให้เป็น ตัวแปร <span class="h5 fw-bold ">B</span>
             จะเพิ่มประสิทธิภาพให้เว็บของคุณ
             {% endif %}
