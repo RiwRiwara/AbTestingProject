@@ -120,6 +120,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         <p> กรุณาป้อนข้อมูลทดสอบของคุณลงในแถบด้านข้าง เครื่องมือของเราจะทำการคำนวณการทดสอบ A/B และคำนวณความสำคัญทางสถิติ
         </p>
 
+        {% if test.visitors_A != 999999 %}
         {% if isSignificant %}
             <div class="my-4 d-flex flex-row gap-2 align-content-center align-items-center">
                 <img src="{{ url_for('static', filename='img/issig.png') }}" alt="reach" class=""
@@ -162,6 +163,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
             {% else %}
                     <p class="fw-bold">แนะนำให้ทำการทดสอบอีกครั้ง เนื่องจากไม่มีหลักฐานมากพอที่จะ สูจน์ความต่างอย่างมีนัยสำคัญ ระหว่าง <span class="fw-bold" style="color: #E4A11C;">ตัวแปร A</span> และ <span class="fw-bold" style="color: #E4A11C;">ตัวแปร B.</span></p>
             {% endif %}
+        {% endif %}
         {% endif %}
 
 
