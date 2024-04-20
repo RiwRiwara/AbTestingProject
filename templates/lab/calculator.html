@@ -121,60 +121,47 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
         </p>
 
         {% if isSignificant %}
+            <div class="my-4 d-flex flex-row gap-2 align-content-center align-items-center">
+                <img src="{{ url_for('static', filename='img/issig.png') }}" alt="reach" class=""
+                    style="width: 50px;height:50px">
+                <h3 class="fw-bold " id="result_val" style="color: #5EC57E;">การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!</h3>
+            </div>
+            {% if test.visitors_A != 999999 %}
+                <p>
+                    {% if isSignificant %}
+                    การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!
+                    {% if isAmB %}
+                    <span class="h5 fw-bold " style="color: #5EC57E;">ตัวแปร A</span> เกิดอัตราการคลิกที่มากกว่า <span class="h5 fw-bold " style="color: #5EC57E;">ตัวแปร <span class="h5 fw-bold ">B
+                        อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
+                    <br>
+                    ฉันมั่นใจว่าการปรับรูปแบบให้เป็น <span style="color: #5EC57E;">ตัวแปร A</span>
+                    จะเพิ่มประสิทธิภาพให้เว็บของคุณ
+                    {% else %}
+                    <span class="fw-bold" style="color: #5EC57E;">ตัวแปร B</span> เกิดอัตราการคลิกที่มากกว่า <span class="fw-bold" style="color: #5EC57E;">ตัวแปร A
+                        อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
+                    <br>
+                    ฉันมั่นใจว่าการปรับรูปแบบให้เป็น <span class="fw-bold" style="color: #5EC57E;">ตัวแปร B</span>
+                    จะเพิ่มประสิทธิภาพให้เว็บของคุณ
+                    {% endif %}
+                    {% else %}
+                    <span class="fw-bold" style="color: #E4A11C;">
+                        การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
+                    </span>
+                    {% endif %}
+                </p>
+            {% endif %}
+        {% else %}
+                <div class="my-4 d-flex flex-row gap-2 align-content-center align-items-center">
+                    <img src="{{ url_for('static', filename='img/nosig.png') }}" alt="reach" class=""
+                        style="width: 50px;height:50px">
+                    <h3 class="fw-bold " id="result_val" style="color: #E4A11C;">การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
+                </div>
 
-        <div class="my-4 d-flex flex-row gap-2 align-content-center align-items-center">
-            <img src="{{ url_for('static', filename='img/issig.png') }}" alt="reach" class=""
-                style="width: 50px;height:50px">
-            <h3 class="fw-bold " id="result_val" style="color: #5EC57E;">การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!</h3>
-        </div>
-
-
-        {% if test.visitors_A != 999999 %}
-       
-        <p>
-            {% if isSignificant %}
-            การทดสอบ A/B ของคุณมีนัยสำคัญทางสถิติ!
             {% if isAmB %}
-            <span class="h5 fw-bold " style="color: #5EC57E;">ตัวแปร A</span> เกิดอัตราการคลิกที่มากกว่า <span class="h5 fw-bold " style="color: #5EC57E;">ตัวแปร <span class="h5 fw-bold ">B
-                อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
-            <br>
-            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น <span style="color: #5EC57E;">ตัวแปร A</span>
-            จะเพิ่มประสิทธิภาพให้เว็บของคุณ
+                    <p class="fw-bold">แนะนำให้ทำการทดสอบอีกครั้ง เนื่องจากไม่มีหลักฐานมากพอที่จะ สูจน์ความต่างอย่างมีนัยสำคัญ ระหว่าง <span class="fw-bold" style="color: #E4A11C;">ตัวแปร A</span> และ <span class="fw-bold" style="color: #E4A11C;">ตัวแปร B.</span></p>
             {% else %}
-             <span class="fw-bold" style="color: #5EC57E;">ตัวแปร B</span> เกิดอัตราการคลิกที่มากกว่า <span class="fw-bold" style="color: #5EC57E;">ตัวแปร A
-                อยู่ที่ {{"{:.2f}".format(xper)}}%</span>
-            <br>
-            ฉันมั่นใจว่าการปรับรูปแบบให้เป็น <span class="fw-bold" style="color: #5EC57E;">ตัวแปร B</span>
-            จะเพิ่มประสิทธิภาพให้เว็บของคุณ
+                    <p class="fw-bold">แนะนำให้ทำการทดสอบอีกครั้ง เนื่องจากไม่มีหลักฐานมากพอที่จะ สูจน์ความต่างอย่างมีนัยสำคัญ ระหว่าง <span class="fw-bold" style="color: #E4A11C;">ตัวแปร A</span> และ <span class="fw-bold" style="color: #E4A11C;">ตัวแปร B.</span></p>
             {% endif %}
-            {% else %}
-            <span class="fw-bold" style="color: #E4A11C;">
-                การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
-            </span>
-            {% endif %}
-        </p>
-
-
-        {% else %}
-
-        <div class="my-4 d-flex flex-row gap-2 align-content-center align-items-center">
-            <img src="{{ url_for('static', filename='img/nosig.png') }}" alt="reach" class=""
-                style="width: 50px;height:50px">
-            <h3 class="fw-bold " id="result_val" style="color: #E4A11C;">การทดสอบ A/B ของคุณไม่มีนัยสำคัญทางสถิติ
-        </div>
-
-
-        {% if isAmB %}
-        <p class="fw-bold">แนะนำให้ทำการทดสอบอีกครั้ง เนื่องจากไม่มีหลักฐานมากพอที่จะ สูจน์ความต่างอย่างมีนัยสำคัญ
-            ระหว่าง <span class="fw-bold" style="color: #E4A11C;">ตัวแปร A</span> และ <span class="fw-bold" style="color: #E4A11C;">ตัวแปร B.</span></p>
-
-        {% else %}
-        <p class="fw-bold">แนะนำให้ทำการทดสอบอีกครั้ง เนื่องจากไม่มีหลักฐานมากพอที่จะ สูจน์ความต่างอย่างมีนัยสำคัญ
-            ระหว่าง <span class="fw-bold" style="color: #E4A11C;">ตัวแปร A</span> และ <span class="fw-bold" style="color: #E4A11C;">ตัวแปร B.</span></p>
-
-        {% endif %}
-
-        {% endif %}
         {% endif %}
 
 
@@ -242,7 +229,7 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
 <span class="fw-bold">A/B testing ย่อมาจากอะไร</span>
     ในการทดสอบ A/B คุณกำลังทดสอบสองตัวแปรเพื่อเปรียบเทียบกัน – ตัวแปร A และตัวแปร B ตัวแปร A เป็นตัวแปรต้น (หรือที่เรียกว่าตัวควบคุม) และ B เป็นการทำซ้ำของตัวแปร A
 แต่มีการปรับเปลี่ยนเพียงเล็กน้อย นอกจากนี้คุณยังสามารถเพิ่มตัวแปรเพิ่มเติม (C, D, E … ฯลฯ ) แต่เพื่อให้ได้ผลลัพธ์ที่มีนัยสำคัญทางสถิติ
-<br>เราขอแนะนำให้ทดสอบ A เทียบกับ B
+เราขอแนะนำให้ทดสอบ A เทียบกับ B
 </pre>
         <hr />
 

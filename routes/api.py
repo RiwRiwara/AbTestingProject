@@ -112,5 +112,50 @@ def delete_all():
         'status': 'deleted'
     }
 
+@apiAPI.route('/export_click_action_to_csv', methods=['GET'])
+def export_click_action_to_csv():
+    import csv
+    import json
+    from bson import json_util
+
+    click_actions = db.click_actions.find({})
+    click_actions = json.loads(json_util.dumps(click_actions))
+
+    with open('click_actions.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['date_click', 'user_id', 'button', 'page'])
+        for click_action in click_actions:
+            # Remove newline characters if they exist in the fields
+            date_click = str(click_action['date_click']).replace('\n', '')
+            user_id = str(click_action['user_id']).replace('\n', '')
+            button = str(click_action['button']).replace('\n', '')
+            page = str(click_action['page']).replace('\n', '')
+            writer.writerow([date_click, user_id, button, page])
+    
+    return {
+        'status': 'exported'
+    }
+    
+@apiAPI.route('/export_visitors_to_csv', methods=['GET'])
+def export_visitors_to_csv():
+    import csv
+    import json
+    from bson import json_util
+
+    visitors = db.visitors.find({})
+    visitors = json.loads(json_util.dumps(visitors))
+
+    with open('visitors.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['date_visit', 'page'])
+        for visitor in visitors:
+            # Remove newline characters if they exist in the fields
+            date_visit = str(visitor['date_visit']).replace('\n', '')
+            page = str(visitor['page']).replace('\n', '')
+            writer.writerow([date_visit, page])
+    
+    return {
+        'status': 'exported'
+    }
 
     

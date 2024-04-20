@@ -14,8 +14,9 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
   <div class="d-flex flex-column justify-content-center align-content-center text-center">
     <h1 class="fw-bold">New Collection</h1>
     <h4>สมาชิกลด 10%</h4>
-    <div <button class="btn btn-dark fw-bold fs-5" id="buyB" name="buyB" onclick="handleButtonClick('B')">
-      สั่งซื้อเลย
+    <div>
+      <button class="btn btn-dark fw-bold fs-5" id="buyB" name="buyB" onclick="handleButtonClick('B')">
+        สั่งซื้อเลย
       </button>
     </div>
   </div>
@@ -40,22 +41,21 @@ block content %} {% with messages = get_flashed_messages() %} {% if messages %}
   <div class="d-flex justify-content-between gap-4">
     <div class="image-container">
       <img src="{{ url_for('static', filename='img/main/section-1/image 6.png') }}" alt="" class="img-fluid" />
-      <button class="btn fw-bold text-white fs-5 my-2 nbtn w-75"
-        style="background-color: #F398C1;">BEST SELLER</button>
+      <button class="btn fw-bold text-white fs-5 my-2 nbtn w-75" style="background-color: #F398C1;">BEST SELLER</button>
 
-      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')" >ดูเพิ่มเติม</button>
+      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')">ดูเพิ่มเติม</button>
     </div>
     <div class="image-container">
       <img src="{{ url_for('static', filename='img/main/section-1/image 7.png') }}" alt="" class="img-fluid" />
-      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')" >ดูเพิ่มเติม</button>
+      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')">ดูเพิ่มเติม</button>
     </div>
     <div class="image-container">
       <img src="{{ url_for('static', filename='img/main/section-1/image 8.png') }}" alt="" class="img-fluid" />
-      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')" >ดูเพิ่มเติม</button>
+      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')">ดูเพิ่มเติม</button>
     </div>
     <div class="image-container">
       <img src="{{ url_for('static', filename='img/main/section-1/image 9.png') }}" alt="" class="img-fluid" />
-      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')" >ดูเพิ่มเติม</button>
+      <button class="btn btn-light fw-bold shadow-sm" onclick="handleButtonClick('B', 'viewmore')">ดูเพิ่มเติม</button>
     </div>
   </div>
 </section>

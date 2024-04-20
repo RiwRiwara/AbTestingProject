@@ -174,9 +174,9 @@ def calculator():
         uplift_a = round(((conversion_A / visitors_A * 100) * 100) / (conversion_B / visitors_B * 100)-100, 4) 
         uplift_b = round(((conversion_B / visitors_B * 100) * 100) / (conversion_A / visitors_A * 100)-100, 4) 
 
-        isAmB = uplift_a > uplift_b
+        isAmB = (uplift_a > uplift_b)
         isSignificant = p_value < alpha
-        print(uplift_a, uplift_b, isSignificant)
+        print(isAmB, uplift_a, uplift_b, isSignificant)
 
         xper = 0
         if isAmB :
