@@ -89,7 +89,7 @@ def dashboard():
         bar_chart_data_B = [save_B, register_B, login_B, viewmore_B]
 
         # Check page
-        if page == 'all':
+        if page == 'all' or True:
             visitors_count_display = visitors_count_A + visitors_count_B
         else:
             visitors_count_display = db.visitors.count_documents({'page': page})
@@ -161,7 +161,7 @@ def dashboard():
             'visitors_count': {
                 'A': visitors_count_A if page == 'all' or page == 'A' else 0,
                 'B': visitors_count_B if page == 'all' or page == 'B' else 0,
-                'data': [visitors_count_A if page == 'all' or page == 'A' else 0, visitors_count_B if page == 'all' or page == 'B' else 0],
+                'data': [visitors_count_A if page == 'all' or page == 'A' else visitors_count_A, visitors_count_B if page == 'all' or page == 'B' else visitors_count_B],
             },
             'bar_chart': {
                 'labels': bar_chart_labels,
