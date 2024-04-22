@@ -158,8 +158,10 @@ def dashboard():
                 'test' : test,
             },
             'visitors_count': {
-                'A': visitors_count_A if page == 'all' or page == 'A' else visitors_count_A,
-                'B': visitors_count_B if page == 'all' or page == 'B' else visitors_count_B,
+                'As': visitors_count_A if page == 'all' or page == 'A' else visitors_count_A,
+                'Bs': visitors_count_B if page == 'all' or page == 'B' else visitors_count_B,
+                'A': visitors_count_A if page == 'all' or page == 'A' else 0,
+                'B': visitors_count_B if page == 'all' or page == 'B' else 0,
                 'data': [visitors_count_A if page == 'all' or page == 'A' else visitors_count_A, visitors_count_B if page == 'all' or page == 'B' else visitors_count_B],
             },
             'bar_chart': {
