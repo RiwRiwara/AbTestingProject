@@ -8,7 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as scs
 import matplotlib.ticker as mtick
-import seaborn as sns
 from io import BytesIO
 import base64
 

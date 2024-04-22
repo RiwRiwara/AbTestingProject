@@ -8,7 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as scs
 import matplotlib.ticker as mtick
-import seaborn as sns
 from io import BytesIO
 import base64
 import random
@@ -159,8 +158,8 @@ def dashboard():
                 'test' : test,
             },
             'visitors_count': {
-                'A': visitors_count_A if page == 'all' or page == 'A' else 0,
-                'B': visitors_count_B if page == 'all' or page == 'B' else 0,
+                'A': visitors_count_A if page == 'all' or page == 'A' else visitors_count_A,
+                'B': visitors_count_B if page == 'all' or page == 'B' else visitors_count_B,
                 'data': [visitors_count_A if page == 'all' or page == 'A' else visitors_count_A, visitors_count_B if page == 'all' or page == 'B' else visitors_count_B],
             },
             'bar_chart': {
